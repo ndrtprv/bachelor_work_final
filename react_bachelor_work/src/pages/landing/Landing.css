@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+div.row.featurette.start_elem {
+    margin-top: 1rem;
+}
+
+.txt_field {
+    align-self: center;
+}
+
+.carousel-item {
+    height: 32rem;
+}
+
+.img-uaf {
+    background: url("../../resources/uaf_help.jpg");
+    opacity: 50%;
+}
+
+.img-hum {
+    background: url("../../resources/humanitarian.jpg");
+    opacity: 50%;
+}
+
+.img-vol {
+    background: url("../../resources/volunteer.jpg");
+    opacity: 50%;
+}
+
+.mont {
+    background-color: aliceblue;
+    color: rgb(0, 0, 0);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.rob {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+.carous {
+    background-color: aliceblue;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+.rob-btn {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+
+.lat-h2 {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+}
+
+.lat-h3 {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+}

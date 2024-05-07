@@ -1,0 +1,74 @@
+import About from "./pages/about/About";
+import AdminPanel from "./pages/admin_panel/AdminPanel";
+import UserPanel from "./pages/user_panel/UserPanel";
+import Fundraisings from "./pages/fundraisings/Fundraisings";
+import Landing from "./pages/landing/Landing";
+import Staff from "./pages/staff/Staff";
+import Notices from "./pages/notices/Notices";
+import { ABOUT_ROUTE, ADMIN_ROUTE, CONTACTS_ROUTE, FAQ_ROUTE,
+    FUNDRAISINGS_ROUTE, LANDING_ROUTE, LOGIN_ROUTE, NOTICES_ROUTE,
+    RESULTS_ROUTE, SIGNUP_ROUTE, STAFF_ROUTE, USER_ROUTE 
+} from "./utils/constants";
+import Results from "./pages/results/Results";
+import Login from "./pages/login/Login";
+import Registration from "./pages/registration/Registration";
+import Contacts from "./pages/contacts/Contacts";
+import FAQ from "./pages/faq/FAQ";
+import { questions } from "./utils/constants";
+
+export const adminRoutes = [
+    {
+        path: ADMIN_ROUTE,
+        Component: <AdminPanel />
+    }
+];
+
+export const userRoutes = [
+    {
+        path: USER_ROUTE,
+        Component: <UserPanel />
+    }
+];
+
+export const publicRoutes = [
+    {
+        path: LANDING_ROUTE,
+        Component: <Landing />
+    },
+    {
+        path: ABOUT_ROUTE,
+        Component: <About />
+    },
+    {
+        path: STAFF_ROUTE + '/:id',
+        Component: <Staff />
+    },
+    {
+        path: FUNDRAISINGS_ROUTE + '/:id',
+        Component: <Fundraisings />
+    },
+    {
+        path: NOTICES_ROUTE + '/:id',
+        Component: <Notices />
+    },
+    {
+        path: RESULTS_ROUTE + '/:id',
+        Component: <Results />
+    },
+    {
+        path: CONTACTS_ROUTE,
+        Component: <Contacts />
+    },
+    {
+        path: FAQ_ROUTE,
+        Component: <FAQ quests={questions} />
+    },
+    {
+        path: LOGIN_ROUTE,
+        Component: <Login />
+    },
+    {
+        path: SIGNUP_ROUTE,
+        Component: <Registration />
+    }
+];

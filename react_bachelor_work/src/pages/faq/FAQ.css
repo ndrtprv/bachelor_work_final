@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+.accordion {
+    margin: 1em 1em 0 1em;
+}
+
+.accordion-button {
+    color: rgb(84, 160, 54);
+    font-family: 'Roboto', sans-serif;
+    font-weight: bolder;
+    font-size: 0.6em;
+}
+
+.accordion-body {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+}

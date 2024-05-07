@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+
+.foot-bottom {
+    background-color: #3f51b5;
+    margin-bottom: 0;
+    border-bottom: 0;
+}
+
+.foot-back {
+    background-color: #00000033;
+}
+
+.lat {
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+}
+
+.rob {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
