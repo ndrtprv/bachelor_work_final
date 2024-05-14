@@ -1,18 +1,15 @@
-import { useContext } from 'react';
+//import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Context } from '../../..';
-import { LANDING_ROUTE, USER_ROUTE, LOGIN_ROUTE, SIGNUP_ROUTE } from '../../../utils/constants';
+import { LANDING_ROUTE/*, USER_ROUTE*/, LOGIN_ROUTE, SIGNUP_ROUTE } from '../../../utils/constants';
 import { Container, Nav, Navbar, NavDropdown, Button } from 'react-bootstrap';
-import Avatar from 'react-avatar';
+//import Avatar from 'react-avatar';
 
 function NavigationPanel(props) {
 
-    const {user} = useContext(Context);
-
-    const logOut = () => {
+    /*const logOut = () => {
         user.setUser({})
-        user.setIsAuth(false)
-    }
+        user.setIsLoggedIn(false)
+    }*/
 
     return (
         <Navbar collapseOnSelect expand="lg" className="navbar-dark bg-dark" aria-label="navbar">
@@ -31,7 +28,7 @@ function NavigationPanel(props) {
                             <NavLink key={path} to={path} className="nav-link lat">{label}</NavLink>
                         )}
                     </Nav>
-                    {user.isLoggedIn ? 
+                    {/*user.isLoggedIn ? 
                         <Nav className="nav navbar-right">
                             <NavLink to={USER_ROUTE} className="nav-link lat">
                                 <Avatar alt="Профіль" src={props.avatar} size="2.4em" />
@@ -40,7 +37,7 @@ function NavigationPanel(props) {
                                 <Button type="button" className="btn btn-warning my-2 rob-btn" onClick={() => logOut()}>Вийти</Button>
                             </NavLink>
                         </Nav>
-                        :
+                        :*/
                         <Nav className="nav navbar-right">
                             <NavLink to={LOGIN_ROUTE} className="nav-link lat">
                                 <Button type="button" className="btn btn-outline-light me-2 my-2 rob-btn">Увійти</Button>

@@ -1,17 +1,20 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './Registration.css';
-import React, { useContext, useState } from 'react';
+import React, { /*useContext,*/ useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import {observer} from 'mobx-react-lite';
-import {registration} from '../../http/userApi';
-import {Context} from '../../index';
+import { Container } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
+import { LOGIN_ROUTE } from '../../utils/constants';
+//import {Context} from '../../index';
+import axios from 'axios';
 
 import { LANDING_ROUTE } from '../../utils/constants';
 
 const Registration = observer(() => {
 
-    const {user} = useContext(Context);
+    /*const {user} = useContext(Context);*/
 
     const navigate = useNavigate();
 
@@ -21,10 +24,13 @@ const Registration = observer(() => {
         password: "",
         name: "",
         surname: "",
-        bio: ""
+        bio: "",
+        avatar: undefined,
+        isAdminCandidate: false,
+        hideData: false
     });
 
-    const { login, phone, password, name, surname, bio } = formData;
+    const { login, phone, password, name, surname, bio, avatar, isAdminCandidate, hideData } = formData;
 
     const onChange = (e) =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -33,12 +39,20 @@ const Registration = observer(() => {
 
     const [agreement, setAgreement] = useState(false);
 
-    const signup = async () => {
+    const signup = async (e) => {
         try {
-            let data = await registration(formData.login, formData.phone, formData.password, formData.name, formData.surname, formData.bio);
-            console.log(data);
-            user.setUser(user);
-            user.setIsAuth(true);
+            e.preventDefault();
+            await axios.post('http://localhost:3003/user/signup', 
+                {
+                    login, phone, password, name, surname, bio, 
+                    avatar: null, isAdminCandidate, hideData, 
+                    createdAt: new Date(), verifiedAt: null
+                }
+            ).then(response => {
+                console.log(response)
+            }).catch(err => {
+                console.log(err.message);
+            });
             navigate(LANDING_ROUTE);
         } catch (e) {
             alert(e.response.data.message);
@@ -47,7 +61,7 @@ const Registration = observer(() => {
 
     return (
         <main>
-            <Form>
+            <Form method="post">
                 <Form.Group className="mb-3 registration-field" controlId="formBasicEmail">
                     <Form.Label><b>Email <span style={{color: "red"}}>*</span></b></Form.Label>
                     <Form.Control type="email" placeholder="Введіть Ваш email" name="login" value={login} onChange={onChange} required />
@@ -73,6 +87,11 @@ const Registration = observer(() => {
                     <Form.Control as="textarea" type="text" resize="none" placeholder="Введіть додаткові дані про вас" name="bio" value={bio} onChange={onChange} />
                 </Form.Group>
 
+                <Form.Group className="mb-3 registration-field" controlId="formBasicAvatar">
+                    <Form.Label><b>Фото профілю</b></Form.Label>
+                    <Form.Control type="file" accept="image/png, image/gif, image/jpeg, image/bmp" alt="Оберіть фото" name="avatar" value={avatar} onChange={onChange} />
+                </Form.Group>
+
                 <Form.Group className="mb-3 registration-field" controlId="formBasicPassword">
                     <Form.Label><b>Пароль <span style={{color: "red"}}>*</span></b></Form.Label>
                     <Form.Control type="password" placeholder="Введіть пароль" name="password" value={password} onChange={onChange} required />
@@ -85,10 +104,16 @@ const Registration = observer(() => {
                     />
                 </Form.Group>
 
-                <Form.Group className="mb-3 registration-field" controlId="formBasicRadio">
+                <Form.Group className="mb-3 registration-field" controlId="formBasicRole">
                     <Form.Label><b>Роль <span style={{color: "red"}}>*</span></b></Form.Label>
-                    <Form.Check type="radio" name="chooseRole1" label="Користувач" required />
-                    <Form.Check type="radio" name="chooseRole2" label="Адмін" />
+                    <Form.Check type="radio" name={`isAdminCandidate`} label="Користувач" value={false} onClick={onChange} required />
+                    <Form.Check type="radio" name={`isAdminCandidate`} label="Адмін" value={true} onClick={onChange} />
+                </Form.Group>
+
+                <Form.Group className="mb-3 registration-field" controlId="formBasicHide">
+                    <Form.Label><b>Приховати дані? <span style={{color: "red"}}>*</span></b></Form.Label>
+                    <Form.Check type="radio" name={`hideData`} label="Так" value={true} onClick={onChange} required />
+                    <Form.Check type="radio" name={`hideData`} label="Ні" value={false} onClick={onChange} />
                 </Form.Group>
 
                 <Form.Group className="mb-3 registration-field" controlId="formBasicCheckbox">
@@ -108,8 +133,12 @@ const Registration = observer(() => {
                     <Form.Label><b><span style={{color: "red"}}>*</span></b> - обов'язково до заповнення</Form.Label>
                 </Form.Group>
             </Form>
+
+            <Container>
+                <p>Уже зареєстровані? <NavLink to={LOGIN_ROUTE} >Авторизуватися</NavLink></p>
+            </Container>
         </main>
     );
-})
+});
 
 export default Registration;

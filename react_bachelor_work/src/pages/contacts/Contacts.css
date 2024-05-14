@@ -15,3 +15,17 @@ i {
     border-width: 1em;
     font-size: 1.15em;
 }
+
+.contact-page {
+    flex-direction: row;
+}
+
+@media only screen and (max-width: 800px) {
+    .contact-page {
+        flex-direction: column;
+    }
+
+    .contact-data {
+        margin-top: 1em;
+    }
+}

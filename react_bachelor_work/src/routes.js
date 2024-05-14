@@ -14,7 +14,7 @@ import Login from "./pages/login/Login";
 import Registration from "./pages/registration/Registration";
 import Contacts from "./pages/contacts/Contacts";
 import FAQ from "./pages/faq/FAQ";
-import { questions } from "./utils/constants";
+import { questions, members } from "./utils/constants";
 
 export const adminRoutes = [
     {
@@ -33,18 +33,18 @@ export const userRoutes = [
 export const publicRoutes = [
     {
         path: LANDING_ROUTE,
-        Component: <Landing />
+        Component: <Landing members={members} />
     },
     {
         path: ABOUT_ROUTE,
         Component: <About />
     },
     {
-        path: STAFF_ROUTE + '/:id',
+        path: STAFF_ROUTE,
         Component: <Staff />
     },
     {
-        path: FUNDRAISINGS_ROUTE + '/:id',
+        path: FUNDRAISINGS_ROUTE,
         Component: <Fundraisings />
     },
     {
@@ -52,7 +52,7 @@ export const publicRoutes = [
         Component: <Notices />
     },
     {
-        path: RESULTS_ROUTE + '/:id',
+        path: RESULTS_ROUTE,
         Component: <Results />
     },
     {

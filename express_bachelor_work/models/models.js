@@ -10,12 +10,14 @@ const User = sequelize.define('user', {
     surname: {type: DataTypes.STRING(300), allowNull: false},
     bio: {type: DataTypes.TEXT},
     avatar: {type: DataTypes.BLOB},
+    hideData: {type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false},
     createdAt: {type: DataTypes.DATE, allowNull: false},
     verifiedAt: {type: DataTypes.DATE}
 });
 
 const Admin = sequelize.define('admin', {
-    admin_id: {type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true}
+    admin_id: {type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true},
+    status: {type: DataTypes.SMALLINT, allowNull: false}
 });
 
 const VerificationCodes = sequelize.define('verification_codes', {
@@ -70,7 +72,7 @@ Photo.belongsTo(Notice, {foreignKey: 'notice_id', targetKey: 'id', onUpdate: 'ca
 Fundraise.hasMany(Photo, {foreignKey: 'fundraise_id', sourceKey: 'id'});
 Photo.belongsTo(Fundraise, {foreignKey: 'fundraise_id', targetKey: 'id', onUpdate: 'cascade'});
 
-Fundraise.hasMany(Result, {foreignKey: 'fundraise_id', sourceKey: 'id'});
+Fundraise.hasOne(Result, {foreignKey: 'fundraise_id', sourceKey: 'id'});
 Result.belongsTo(Fundraise, {foreignKey: 'fundraise_id', targetKey: 'id', onDelete: 'cascade', onUpdate: 'cascade'});
 
 Result.hasMany(Photo, {foreignKey: 'result_id', sourceKey: 'id'});

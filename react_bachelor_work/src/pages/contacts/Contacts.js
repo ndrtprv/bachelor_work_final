@@ -5,7 +5,7 @@ import OtherContacts from './other_contacts/OtherContacts';
 function Contacts() {
     return (
         <main>
-            <div className='d-flex flex-row justify-content-center'>
+            <div className='d-flex justify-content-center contact-page'>
                 <OtherContacts />
                 <Feedback />
             </div>

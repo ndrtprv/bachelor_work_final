@@ -25,6 +25,12 @@ export const FAQ_ROUTE = '/faq';
 export const LOGIN_ROUTE = '/login';
 export const SIGNUP_ROUTE = '/signup';
 
+export const members = {
+    "Андрій Топоров": "Голова благодійного фонду.",
+    "Валерій Грищук": "Перший заступник голови.",
+    "Павло Пилипчук": "Адміністратор."
+}    
+
 export const questions = [
     {
         question: 'Як можу долучитися до благодійної діяльності фонду для підтримки українських військових?',
