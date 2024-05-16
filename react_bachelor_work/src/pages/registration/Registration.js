@@ -20,7 +20,7 @@ const Registration = observer(() => {
 
     const [formData, setFormData] = useState({
         login: "",
-        phone: "",
+        phone_num: "",
         password: "",
         name: "",
         surname: "",
@@ -30,7 +30,7 @@ const Registration = observer(() => {
         hideData: false
     });
 
-    const { login, phone, password, name, surname, bio, avatar, isAdminCandidate, hideData } = formData;
+    const { login, phone_num, password, name, surname, bio, avatar, isAdminCandidate, hideData } = formData;
 
     const onChange = (e) =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -39,29 +39,33 @@ const Registration = observer(() => {
 
     const [agreement, setAgreement] = useState(false);
 
+    axios.defaults.withCredentials = true;
     const signup = async (e) => {
         try {
             e.preventDefault();
             await axios.post('http://localhost:3003/user/signup', 
                 {
-                    login, phone, password, name, surname, bio, 
-                    avatar: null, isAdminCandidate, hideData, 
-                    createdAt: new Date(), verifiedAt: null
+                    login, phone_num, password, name, surname, bio, 
+                    avatar: null, isAdminCandidate, hideData
                 }
             ).then(response => {
-                console.log(response)
+                console.log(response);
+                if (response.data.status) {
+                    navigate(LANDING_ROUTE);
+                }
             }).catch(err => {
                 console.log(err.message);
             });
-            navigate(LANDING_ROUTE);
         } catch (e) {
             alert(e.response.data.message);
         }
     }
 
     return (
-        <main>
+        <main style={{display: 'inline-flex', flexDirection: 'column'}} >
+            
             <Form method="post">
+                <h2>Реєстрація</h2>
                 <Form.Group className="mb-3 registration-field" controlId="formBasicEmail">
                     <Form.Label><b>Email <span style={{color: "red"}}>*</span></b></Form.Label>
                     <Form.Control type="email" placeholder="Введіть Ваш email" name="login" value={login} onChange={onChange} required />
@@ -69,7 +73,7 @@ const Registration = observer(() => {
 
                 <Form.Group className="mb-3 registration-field" controlId="formBasicNumber">
                     <Form.Label><b>Номер телефону <span style={{color: "red"}}>*</span></b></Form.Label>
-                    <Form.Control type="tel" placeholder="Введіть Ваш номер телефону" name="phone" value={phone} onChange={onChange} required />
+                    <Form.Control type="tel" placeholder="Введіть Ваш номер телефону" name="phone_num" value={phone_num} onChange={onChange} required />
                 </Form.Group>
 
                 <Form.Group className="mb-3 registration-field" controlId="formBasicName">
@@ -134,7 +138,7 @@ const Registration = observer(() => {
                 </Form.Group>
             </Form>
 
-            <Container>
+            <Container style={{backgroundColor: 'beige', borderRadius: '0.5em', display: 'inline-flex', flexDirection: 'column'}} >
                 <p>Уже зареєстровані? <NavLink to={LOGIN_ROUTE} >Авторизуватися</NavLink></p>
             </Container>
         </main>

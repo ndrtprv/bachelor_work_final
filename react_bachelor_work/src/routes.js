@@ -5,9 +5,10 @@ import Fundraisings from "./pages/fundraisings/Fundraisings";
 import Landing from "./pages/landing/Landing";
 import Staff from "./pages/staff/Staff";
 import Notices from "./pages/notices/Notices";
-import { ABOUT_ROUTE, ADMIN_ROUTE, CONTACTS_ROUTE, FAQ_ROUTE,
+import {
+    ABOUT_ROUTE, ADMIN_ROUTE, CONTACTS_ROUTE, FAQ_ROUTE,
     FUNDRAISINGS_ROUTE, LANDING_ROUTE, LOGIN_ROUTE, NOTICES_ROUTE,
-    RESULTS_ROUTE, SIGNUP_ROUTE, STAFF_ROUTE, USER_ROUTE 
+    FORGOT_ROUTE, RESULTS_ROUTE, SIGNUP_ROUTE, STAFF_ROUTE, USER_ROUTE
 } from "./utils/constants";
 import Results from "./pages/results/Results";
 import Login from "./pages/login/Login";
@@ -15,6 +16,7 @@ import Registration from "./pages/registration/Registration";
 import Contacts from "./pages/contacts/Contacts";
 import FAQ from "./pages/faq/FAQ";
 import { questions, members } from "./utils/constants";
+import ForgotPassword from "./pages/forgot_password/ForgotPassword";
 
 export const adminRoutes = [
     {
@@ -70,5 +72,9 @@ export const publicRoutes = [
     {
         path: SIGNUP_ROUTE,
         Component: <Registration />
+    },
+    {
+        path: FORGOT_ROUTE,
+        Component: <ForgotPassword />
     }
 ];
