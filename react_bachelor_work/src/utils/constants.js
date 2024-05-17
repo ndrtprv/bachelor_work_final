@@ -24,7 +24,8 @@ export const CONTACTS_ROUTE = '/contacts';
 export const FAQ_ROUTE = '/faq';
 export const LOGIN_ROUTE = '/login';
 export const SIGNUP_ROUTE = '/signup';
-export const FORGOT_ROUTE = '/forgot-password';
+export const FORGOT_ROUTE = '/forgotPassword';
+export const RESET_ROUTE = '/resetPassword/:token';
 
 export const members = {
     "Андрій Топоров": "Голова благодійного фонду.",

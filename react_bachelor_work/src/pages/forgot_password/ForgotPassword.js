@@ -1,29 +1,45 @@
 import React, { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Container, Form } from 'react-bootstrap';
 import axios from 'axios';
 
 function ForgotPassword() {
 
   const [login, setLogin] = useState("");
+  const [notification, setNotification] = useState(undefined);
 
-  const resetPassword = async (e) => {
+  const forgotPassword = async (e) => {
     try {
-        e.preventDefault();
-        await axios.post('http://localhost:3003/user/forgot-password', 
-            {
-                login
-            }
-        ).catch(err => {
-            console.log(err.message);
-        });
+      e.preventDefault();
+      console.log('Кнопку натиснуто!');
+      await axios.post('http://localhost:3003/user/forgot-password', 
+        {
+          login
+        }
+      ).then(response => {
+        if (response.data.status) {
+          setNotification('Перевірте пошту, на яке надійшло посилання для скидання паролю.');
+        } else {
+          console.log("Провал!");
+        }
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
     } catch (e) {
-        alert(e.response.data.message);
+      alert(e.response.data.message);
     }
   }
 
   return (
     <main className='mt-5'>
-      <Form method="post">
+      {notification !== undefined ? 
+        <Container style={{backgroundColor: 'green'}}>
+          {notification}
+        </Container>
+        : <></>
+      }
+      
+      <Form method="post" >
         <h2>Забули пароль?</h2>
 
         <Form.Group className="mb-3 login-field" controlId="formBasicEmail">
@@ -31,7 +47,7 @@ function ForgotPassword() {
           <Form.Control type="email" placeholder="Введіть ваш email" name="login" value={login} onChange={(e) => setLogin(e.target.value)} required />
         </Form.Group>
 
-        <Button variant="primary" type="submit" onClick={resetPassword}>
+        <Button variant="primary" type="submit" onClick={forgotPassword}>
           Відправити посилання на пошту
         </Button>
       </Form>

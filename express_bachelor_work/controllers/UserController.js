@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const { User, Admin } = require('../models/models');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
-import nodemailer from 'nodemailer';
+const nodemailer = require('nodemailer');
 
 const generateJwt = (id, login, phone_num, name, surname) => {
     return jwt.sign(
@@ -106,8 +106,10 @@ class UserController {
                 return next(ApiError.badRequest("Користувач не зареєстрований!"));
             }
 
+            console.log("Пройдено перевірки!");
+
             const token = jwt.sign(
-                {id: id, login: login, phone_num: phone_num, name: name, surname: surname},
+                {id: user.id, login: user.login, phone_num: user.phone_num, name: user.name, surname: user.surname},
                 process.env.SECRET_KEY,
                 {expiresIn: '5m'}
             );
@@ -115,25 +117,47 @@ class UserController {
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
-                    user: 'ndrtprvbk@gmail.com',
-                    pass: 'tOR1917Len'
+                    user: 'ndrtprv@gmail.com',
+                    pass: 'gkzr qyzw ldpx bblc'
                 }
             });
+
+            const encodedToken = encodeURIComponent(token).replace(/\./g, "%2E");
+
+            console.log("Згенеровано токен та транспортер!");
               
             var mailOptions = {
-                from: 'ndrtprvbk@gmail.com',
+                from: 'ndrtprv@gmail.com',
                 to: login,
                 subject: 'Відновлення паролю',
-                text: `http://localhost:3000/resetPassword/${token}`
+                text: `http://localhost:3000/resetPassword/${encodedToken}`
             };
+
+            console.log("Сформовано лист!");
               
-            transporter.sendMail(mailOptions, function(error, info){
+            await transporter.sendMail(mailOptions, function(error, info){
                 if (error) {
                     return res.json({message: 'Помилка надсилання листа за вказаним email!'});
                 } else {
                     return res.json({status: true, message: 'Лист надіслано за вказаним email: ' + info.response});
                 }
             });
+        } catch (e) {
+            console.log(e.message);
+        }
+    }
+
+    async resetPassword(req, res) {
+        const {token} = req.params;
+        const {password} = req.body;
+        try {
+            const decoded = jwt.verify(token, process.env.SECRET_KEY);
+            const id = decoded.id;
+            const encryptedPassword = await bcrypt.hash(password, 7);
+
+            await User.update({password: encryptedPassword}, {where: {id: id}});
+
+            return res.json({status: true, message: 'Пароль оновлено!'});
         } catch (e) {
             console.log(e.message);
         }

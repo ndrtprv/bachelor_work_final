@@ -8,7 +8,8 @@ import Notices from "./pages/notices/Notices";
 import {
     ABOUT_ROUTE, ADMIN_ROUTE, CONTACTS_ROUTE, FAQ_ROUTE,
     FUNDRAISINGS_ROUTE, LANDING_ROUTE, LOGIN_ROUTE, NOTICES_ROUTE,
-    FORGOT_ROUTE, RESULTS_ROUTE, SIGNUP_ROUTE, STAFF_ROUTE, USER_ROUTE
+    FORGOT_ROUTE, RESULTS_ROUTE, SIGNUP_ROUTE, STAFF_ROUTE, USER_ROUTE,
+    RESET_ROUTE
 } from "./utils/constants";
 import Results from "./pages/results/Results";
 import Login from "./pages/login/Login";
@@ -17,6 +18,7 @@ import Contacts from "./pages/contacts/Contacts";
 import FAQ from "./pages/faq/FAQ";
 import { questions, members } from "./utils/constants";
 import ForgotPassword from "./pages/forgot_password/ForgotPassword";
+import ResetPassword from "./pages/reset_password/ResetPassword";
 
 export const adminRoutes = [
     {
@@ -76,5 +78,9 @@ export const publicRoutes = [
     {
         path: FORGOT_ROUTE,
         Component: <ForgotPassword />
+    },
+    {
+        path: RESET_ROUTE,
+        Component: <ResetPassword />
     }
 ];
