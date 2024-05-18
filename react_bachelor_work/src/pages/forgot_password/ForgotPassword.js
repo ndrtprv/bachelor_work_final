@@ -10,7 +10,6 @@ function ForgotPassword() {
   const forgotPassword = async (e) => {
     try {
       e.preventDefault();
-      console.log('Кнопку натиснуто!');
       await axios.post('http://localhost:3003/user/forgot-password', 
         {
           login
@@ -18,8 +17,6 @@ function ForgotPassword() {
       ).then(response => {
         if (response.data.status) {
           setNotification('Перевірте пошту, на яке надійшло посилання для скидання паролю.');
-        } else {
-          console.log("Провал!");
         }
       })
       .catch(err => {

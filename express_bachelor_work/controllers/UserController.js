@@ -106,8 +106,6 @@ class UserController {
                 return next(ApiError.badRequest("Користувач не зареєстрований!"));
             }
 
-            console.log("Пройдено перевірки!");
-
             const token = jwt.sign(
                 {id: user.id, login: user.login, phone_num: user.phone_num, name: user.name, surname: user.surname},
                 process.env.SECRET_KEY,
@@ -123,8 +121,6 @@ class UserController {
             });
 
             const encodedToken = encodeURIComponent(token).replace(/\./g, "%2E");
-
-            console.log("Згенеровано токен та транспортер!");
               
             var mailOptions = {
                 from: 'ndrtprv@gmail.com',
@@ -132,8 +128,6 @@ class UserController {
                 subject: 'Відновлення паролю',
                 text: `http://localhost:3000/resetPassword/${encodedToken}`
             };
-
-            console.log("Сформовано лист!");
               
             await transporter.sendMail(mailOptions, function(error, info){
                 if (error) {
@@ -160,6 +154,29 @@ class UserController {
             return res.json({status: true, message: 'Пароль оновлено!'});
         } catch (e) {
             console.log(e.message);
+        }
+    }
+
+    async verify(req, res) {
+        try {
+            const token = req.cookies.token;
+            if (!token) {
+                return res.json({status: false, message: 'Ви не авторизовані!'});
+            }
+
+            const decoded = await jwt.verify(token, process.env.SECRET_KEY);
+            return res.json({status: true, message: 'Ви авторизовані!'});
+        } catch (e) {
+            return res.json(e);
+        }
+    }
+
+    async logout(req, res) {
+        try {
+            res.clearCookie('token');
+            return res.json({status: true, message: 'Вихід успішний!'});
+        } catch (e) {
+            return res.json(e);
         }
     }
 }

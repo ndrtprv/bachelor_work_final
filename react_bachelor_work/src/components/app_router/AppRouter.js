@@ -2,6 +2,7 @@ import React from 'react';
 import {observer} from "mobx-react-lite";
 import {Route, Routes, Navigate} from 'react-router-dom';
 import { adminRoutes, userRoutes, publicRoutes } from '../../routes';
+import { LANDING_ROUTE } from '../../utils/constants';
 
 const AppRouter = observer(() => {
 
@@ -16,7 +17,7 @@ const AppRouter = observer(() => {
       {publicRoutes.map(({path, Component}) =>
         <Route key={path} path={path} element={Component} exact />
       )}
-      <Route path='*' element={<Navigate to='/' />} />
+      <Route path='*' element={<Navigate to={LANDING_ROUTE} />} />
     </Routes>
   )
 });

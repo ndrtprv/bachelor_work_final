@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
+    "js-cookie": "^3.0.5",
     "jwt-decode": "^4.0.0",
     "mobx": "^6.12.3",
     "mobx-react-lite": "^4.0.7",

@@ -1,6 +1,24 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { LANDING_ROUTE } from '../../utils/constants';
 
 function UserPanel() {
+
+  const navigate = useNavigate();
+
+  axios.defaults.withCredentials = true;
+  useEffect(() => {
+    axios.get('http://localhost:3003/user/verify')
+    .then(res => {
+      if (res.data.status) {
+        console.log(res);
+      } else {
+        navigate(LANDING_ROUTE);
+      }
+    })
+  });
+
   return (
     <div>UserPanel</div>
   )
