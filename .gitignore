@@ -18,3 +18,4 @@
 /react_bachelor_work/yarn-error.log*
 
 /express_bachelor_work/node_modules
+/express_bachelor_work/.env

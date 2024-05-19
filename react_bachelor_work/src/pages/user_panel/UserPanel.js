@@ -9,7 +9,7 @@ function UserPanel() {
 
   axios.defaults.withCredentials = true;
   useEffect(() => {
-    axios.get('http://localhost:3003/user/verify')
+    axios.get(process.env.REACT_APP_API_URL + 'user/verify')
     .then(res => {
       if (res.data.status) {
         console.log(res);

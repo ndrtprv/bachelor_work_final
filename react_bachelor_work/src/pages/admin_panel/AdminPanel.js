@@ -8,7 +8,7 @@ function AdminPanel() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:3003/user/verify')
+    axios.get(process.env.REACT_APP_API_URL + 'user/verify')
     .then(res => {
       if (res.data.status && res.data.isAdmin) {
         console.log(res);

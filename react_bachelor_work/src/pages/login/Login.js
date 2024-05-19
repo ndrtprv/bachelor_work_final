@@ -26,7 +26,7 @@ const Login = observer(() =>  {
     const logIn = async (e) => {
         try {
             e.preventDefault();
-            await axios.post('http://localhost:3003/user/login', 
+            await axios.post(process.env.REACT_APP_API_URL + 'user/login', 
                 {
                     login, password
                 }

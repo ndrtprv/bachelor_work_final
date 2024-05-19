@@ -43,7 +43,7 @@ const Registration = observer(() => {
     const signup = async (e) => {
         try {
             e.preventDefault();
-            await axios.post('http://localhost:3003/user/signup', 
+            await axios.post(process.env.REACT_APP_API_URL + 'user/signup', 
                 {
                     login, phone_num, password, name, surname, bio, 
                     avatar: null, isAdminCandidate, hideData
