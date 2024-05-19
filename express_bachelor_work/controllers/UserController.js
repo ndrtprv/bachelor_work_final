@@ -165,7 +165,14 @@ class UserController {
             }
 
             const decoded = await jwt.verify(token, process.env.SECRET_KEY);
-            return res.json({status: true, message: 'Ви авторизовані!'});
+
+            const possibleAdmin = await Admin.findOne({where: {user_id: decoded.id, status: 1}})
+
+            if (possibleAdmin) {
+                return res.json({status: true, isAdmin: true, message: 'Ви авторизовані! Ви адмін.'});
+            } else {
+                return res.json({status: true, isAdmin: false, message: 'Ви авторизовані!'});
+            }
         } catch (e) {
             return res.json(e);
         }

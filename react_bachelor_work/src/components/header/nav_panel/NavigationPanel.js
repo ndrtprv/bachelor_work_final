@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom';
-import { LANDING_ROUTE, USER_ROUTE, LOGIN_ROUTE, SIGNUP_ROUTE } from '../../../utils/constants';
+import { LANDING_ROUTE, USER_ROUTE, LOGIN_ROUTE, SIGNUP_ROUTE, ADMIN_ROUTE } from '../../../utils/constants';
 import { Container, Nav, Navbar, NavDropdown, Button } from 'react-bootstrap';
 import axios from 'axios';
 import Avatar from 'react-avatar';
@@ -9,15 +9,23 @@ function NavigationPanel(props) {
 
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
         axios.get('http://localhost:3003/user/verify')
         .then(res => {
             if (res.data.status) {
-                setIsLoggedIn(true);
+                setIsLoggedIn(res.data.status);
+
+                if (res.data.isAdmin) {
+                    setIsAdmin(res.data.isAdmin)
+                }
             } else {
                 setIsLoggedIn(false);
+                setIsAdmin(false);
             }
+        }).catch(err => {
+            console.log(err.message);
         })
     });
 
@@ -56,6 +64,14 @@ function NavigationPanel(props) {
                             <NavLink to={USER_ROUTE} className="nav-link lat">
                                 <Avatar alt="Профіль" src={props.avatar} size="2.4em" />
                             </NavLink>
+                            {
+                                isAdmin ? 
+                                <NavLink to={ADMIN_ROUTE} className="nav-link lat">
+                                    <Button type="button" className="btn btn-primary my-2 rob-btn" >Адмін панель</Button>
+                                </NavLink>
+                                : 
+                                <></>
+                            }
                             <NavLink to={LANDING_ROUTE} className="nav-link lat">
                                 <Button type="button" className="btn btn-warning my-2 rob-btn" onClick={logOut}>Вийти</Button>
                             </NavLink>
