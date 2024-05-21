@@ -10,15 +10,21 @@ function NavigationPanel(props) {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
+    const [avatar, setAvatar] = useState(props.avatar);
 
+    axios.defaults.withCredentials = true;
     useEffect(() => {
-        axios.get(process.env.REACT_APP_API_URL + 'user/verify')
+        axios.get(process.env.REACT_APP_API_URL + 'user/nav')
         .then(res => {
             if (res.data.status) {
                 setIsLoggedIn(res.data.status);
 
                 if (res.data.isAdmin) {
                     setIsAdmin(res.data.isAdmin)
+                }
+
+                if (res.data.portrait !== null) {
+                    setAvatar(res.data.portrait);
                 }
             } else {
                 setIsLoggedIn(false);
@@ -28,8 +34,7 @@ function NavigationPanel(props) {
             console.log(err.message);
         })
     });
-
-    axios.defaults.withCredentials = true;
+    
     const logOut = () => {
         axios.get('http://localhost:3003/user/logout')
         .then(res => {
@@ -62,7 +67,7 @@ function NavigationPanel(props) {
                         isLoggedIn ? 
                         <Nav className="nav navbar-right">
                             <NavLink to={USER_ROUTE} className="nav-link lat">
-                                <Avatar alt="Профіль" src={props.avatar} size="2.4em" />
+                                <Avatar alt="Профіль" src={avatar !== props.avatar ? `data:${avatar.contentType};base64,${avatar.data}` : props.avatar} size="2.4em" />
                             </NavLink>
                             {
                                 isAdmin ? 

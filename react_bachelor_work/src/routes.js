@@ -9,7 +9,8 @@ import {
     ABOUT_ROUTE, ADMIN_ROUTE, CONTACTS_ROUTE, FAQ_ROUTE,
     FUNDRAISINGS_ROUTE, LANDING_ROUTE, LOGIN_ROUTE, NOTICES_ROUTE,
     FORGOT_ROUTE, RESULTS_ROUTE, SIGNUP_ROUTE, STAFF_ROUTE, USER_ROUTE,
-    RESET_ROUTE
+    RESET_ROUTE,
+    CONFIRM_ROUTE
 } from "./utils/constants";
 import Results from "./pages/results/Results";
 import Login from "./pages/login/Login";
@@ -19,6 +20,8 @@ import FAQ from "./pages/faq/FAQ";
 import { questions, members } from "./utils/constants";
 import ForgotPassword from "./pages/forgot_password/ForgotPassword";
 import ResetPassword from "./pages/reset_password/ResetPassword";
+import avatar from './resources/people.png';
+import Confirm from "./pages/confirm/Confirm";
 
 export const adminRoutes = [
     {
@@ -30,7 +33,11 @@ export const adminRoutes = [
 export const userRoutes = [
     {
         path: USER_ROUTE,
-        Component: <UserPanel />
+        Component: <UserPanel avatar={avatar} />
+    },
+    {
+        path: CONFIRM_ROUTE,
+        Component: <Confirm />
     }
 ];
 

@@ -24,6 +24,7 @@ export const CONTACTS_ROUTE = '/contacts';
 export const FAQ_ROUTE = '/faq';
 export const LOGIN_ROUTE = '/login';
 export const SIGNUP_ROUTE = '/signup';
+export const CONFIRM_ROUTE = '/confirm/:token';
 export const FORGOT_ROUTE = '/forgotPassword';
 export const RESET_ROUTE = '/resetPassword/:token';
 

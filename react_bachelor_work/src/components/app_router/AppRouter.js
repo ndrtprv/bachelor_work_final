@@ -10,8 +10,9 @@ const AppRouter = observer(() => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  axios.defaults.withCredentials = true;
   useEffect(() => {
-    axios.get(process.env.REACT_APP_API_URL + 'user/verify')
+    axios.get(process.env.REACT_APP_API_URL + 'user/nav')
     .then(res => {
       if (res.data.status) {
         setIsLoggedIn(res.data.status);

@@ -2,7 +2,7 @@ const ApiError = require("../error/ApiError");
 
 class NoticeController {
 
-    async addNotice (req, res, next) {
+    async addNotice(req, res, next) {
         try {
 
         } catch (e) {
@@ -10,11 +10,19 @@ class NoticeController {
         }
     }
 
-    async getNotices (req, res) {
+    async updateNotice(req, res) {
 
     }
 
-    async getNotice (req, res) {
+    async deleteNotice(req, res) {
+
+    }
+
+    async getNotices(req, res) {
+
+    }
+
+    async getNotice(req, res) {
 
     }
 }

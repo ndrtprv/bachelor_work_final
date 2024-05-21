@@ -1,20 +1,17 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './Registration.css';
-import React, { /*useContext,*/ useState } from 'react';
+import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import {observer} from 'mobx-react-lite';
 import { Container } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { LOGIN_ROUTE } from '../../utils/constants';
-//import {Context} from '../../index';
 import axios from 'axios';
 
 import { LANDING_ROUTE } from '../../utils/constants';
 
 const Registration = observer(() => {
-
-    /*const {user} = useContext(Context);*/
 
     const navigate = useNavigate();
 
@@ -32,8 +29,13 @@ const Registration = observer(() => {
 
     const { login, phone_num, password, name, surname, bio, avatar, isAdminCandidate, hideData } = formData;
 
-    const onChange = (e) =>
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+    const onChange = (e) => {
+        if (e.target.name === "avatar") {
+            setFormData({ ...formData, [e.target.name]: e.target.files[0] })
+        } else {
+            setFormData({ ...formData, [e.target.name]: e.target.value })
+        }
+    };
 
     const [confirmationPassword, setConfirmationPassword] = useState("");
 
@@ -41,17 +43,34 @@ const Registration = observer(() => {
 
     axios.defaults.withCredentials = true;
     const signup = async (e) => {
+        e.preventDefault();
         try {
-            e.preventDefault();
+            const form = new FormData();
+            form.append('login', login);
+            form.append('phone_num', phone_num);
+            form.append('password', password);
+            form.append('name', name);
+            form.append('surname', surname);
+            form.append('bio', bio);
+            form.append('isAdminCandidate', isAdminCandidate);
+            form.append('hideData', hideData);
+
+            if (avatar) {
+                form.append('avatar', avatar);
+            }
+
             await axios.post(process.env.REACT_APP_API_URL + 'user/signup', 
+                form,
                 {
-                    login, phone_num, password, name, surname, bio, 
-                    avatar: null, isAdminCandidate, hideData
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
                 }
             ).then(response => {
                 console.log(response);
                 if (response.data.status) {
                     navigate(LANDING_ROUTE);
+                    alert("Повідомлення про підтвердження даних надіслано на вашу пошту. Дійсне 15 хвилин.");
                 }
             }).catch(err => {
                 console.log(err.message);
@@ -93,7 +112,7 @@ const Registration = observer(() => {
 
                 <Form.Group className="mb-3 registration-field" controlId="formBasicAvatar">
                     <Form.Label><b>Фото профілю</b></Form.Label>
-                    <Form.Control type="file" accept="image/png, image/gif, image/jpeg, image/bmp" alt="Оберіть фото" name="avatar" value={avatar} onChange={onChange} />
+                    <Form.Control type="file" accept="image/*" alt="Оберіть фото" name="avatar" onChange={onChange} />
                 </Form.Group>
 
                 <Form.Group className="mb-3 registration-field" controlId="formBasicPassword">

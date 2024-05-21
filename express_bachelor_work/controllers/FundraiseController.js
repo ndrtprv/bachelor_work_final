@@ -10,6 +10,14 @@ class FundraiseController {
         }
     }
 
+    async updateFundraise(req, res) {
+
+    }
+
+    async deleteFundraise(req, res) {
+
+    }
+
     async getFundraises(req, res) {
 
     }

@@ -9,7 +9,6 @@ const User = sequelize.define('user', {
     name: {type: DataTypes.STRING(300), allowNull: false},
     surname: {type: DataTypes.STRING(300), allowNull: false},
     bio: {type: DataTypes.TEXT},
-    avatar: {type: DataTypes.BLOB},
     hideData: {type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false},
     createdAt: {type: DataTypes.DATE, allowNull: false},
     verifiedAt: {type: DataTypes.DATE}
@@ -20,10 +19,10 @@ const Admin = sequelize.define('admin', {
     status: {type: DataTypes.SMALLINT, allowNull: false}
 });
 
-const VerificationCodes = sequelize.define('verification_codes', {
+const Avatars = sequelize.define('avatars', {
     id: {type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true},
-    code: {type: DataTypes.STRING, allowNull: false},
-    is_active: {type: DataTypes.SMALLINT, allowNull: false}
+    data: {type: DataTypes.BLOB, allowNull: false},
+    contentType: {type: DataTypes.STRING, allowNull: false}
 });
 
 const Notice = sequelize.define('notice', {
@@ -51,14 +50,15 @@ const Result = sequelize.define('result', {
 
 const Photo = sequelize.define('photo', {
     photo_id: {type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true},
-    src_photo: {type: DataTypes.BLOB, allowNull: false}
+    src_photo: {type: DataTypes.BLOB, allowNull: false},
+    contentType: {type: DataTypes.STRING, allowNull: false}
 });
 
 User.hasOne(Admin, {foreignKey: 'user_id', sourceKey: 'id'});
 Admin.belongsTo(User, {foreignKey: 'user_id', targetKey: 'id', onDelete: 'cascade', onUpdate: 'cascade'});
 
-User.hasMany(VerificationCodes, {foreignKey: 'user_id', sourceKey: 'id'});
-VerificationCodes.belongsTo(User, {foreignKey: 'user_id', targetKey: 'id', onDelete: 'cascade', onUpdate: 'cascade'});
+User.hasOne(Avatars, {foreignKey: 'user_id', sourceKey: 'id'});
+Avatars.belongsTo(User, {foreignKey: 'user_id', targetKey: 'id', onDelete: 'cascade', onUpdate: 'cascade'});
 
 User.hasMany(Notice, {foreignKey: 'user_id', sourceKey: 'id'});
 Notice.belongsTo(User, {foreignKey: 'user_id', targetKey: 'id', onDelete: 'cascade', onUpdate: 'cascade'});
@@ -81,7 +81,7 @@ Photo.belongsTo(Result, {foreignKey: 'result_id', targetKey: 'id', onUpdate: 'ca
 module.exports = {
     User,
     Admin,
-    VerificationCodes,
+    Avatars,
     Notice,
     Fundraise,
     Result,
