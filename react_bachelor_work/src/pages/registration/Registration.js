@@ -3,7 +3,6 @@ import Form from 'react-bootstrap/Form';
 import './Registration.css';
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
-import {observer} from 'mobx-react-lite';
 import { Container } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { LOGIN_ROUTE } from '../../utils/constants';
@@ -11,7 +10,7 @@ import axios from 'axios';
 
 import { LANDING_ROUTE } from '../../utils/constants';
 
-const Registration = observer(() => {
+function Registration() {
 
     const navigate = useNavigate();
 
@@ -162,6 +161,6 @@ const Registration = observer(() => {
             </Container>
         </main>
     );
-});
+}
 
 export default Registration;

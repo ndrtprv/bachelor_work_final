@@ -127,7 +127,7 @@ class UserController {
         console.log(token);
 
         try {
-            /*const decoded = jwt.verify(token, process.env.SECRET_KEY);
+            const decoded = jwt.verify(token, process.env.SECRET_KEY);
             console.log(decoded);
 
             const user = await User.findOne({where: {id: decoded.id}});
@@ -161,7 +161,7 @@ class UserController {
                 } else {
                     return res.json({status: true, message: 'Лист надіслано за вказаним email: ' + info.response});
                 }
-            });*/
+            });
         } catch(e) {
             next(ApiError.badRequest(e.message));
         }
@@ -169,11 +169,13 @@ class UserController {
 
     async confirm(req, res, next) {
         const {token} = req.params;
+        console.log(token);
 
         try {
-            const decoded = jwt.verify(token, process.env.SECRET_KEY);
+            const decoded = jwt.verify(token, process.env.SECRET_ACCESS_KEY);
+            const verifiedAt = new Date();
 
-            await User.update({verifiedAt: new Date()}, {where: {login: decoded.login}});
+            await User.update({verifiedAt: verifiedAt}, {where: {login: decoded.login}});
             return res.json({status: true, message: 'Користувача підтверджено! Вітаю!'});
         } catch(e) {
             next(ApiError.badRequest(e.message));
@@ -269,7 +271,7 @@ class UserController {
             const decoded = jwt.verify(token, process.env.SECRET_ACCESS_KEY);
             const encryptedPassword = await bcrypt.hash(password, 7);
 
-            await User.update({password: encryptedPassword}, {where: {id: decoded.id}});
+            await User.update({password: encryptedPassword}, {where: {login: decoded.login}});
 
             return res.json({status: true, message: 'Пароль оновлено!'});
         } catch (e) {
@@ -277,28 +279,10 @@ class UserController {
         }
     }
 
-    async getNavigation(req, res) {
+    async getNavigation(req, res, next) {
         try {
-            const accessToken = req.cookies.accessToken;
-            const refreshToken = req.cookies.refreshToken;
-            if (!accessToken) {
-                if (!refreshToken) {
-                    return res.json({status: false, message: 'Ви не авторизовані!'});
-                } else {
-                    await jwt.verify(refreshToken, process.env.SECRET_REFRESH_KEY, (err, decoded) => {
-                        if (err) {
-                            return res.json({status: false, message: 'Невалідний токен оновлення!'});
-                        } else {
-                            const accessToken = generateAccessJwt(decoded.login, decoded.phone_num, decoded.name, decoded.surname);
-                            res.cookie('accessToken', accessToken, {maxAge: 900000});
-                        }
-                    });
-                }
-            }
 
-            const decoded = await jwt.verify(accessToken, process.env.SECRET_ACCESS_KEY);
-
-            const user = await User.findOne({where: {login: decoded.login}});
+            const user = await User.findOne({where: {login: req.login}});
             const possibleAvatar = await Avatars.findOne({where: {user_id: user.id}});
             const possibleAdmin = await Admin.findOne({where: {user_id: user.id, status: 1}});
 
@@ -322,28 +306,9 @@ class UserController {
         }
     }
 
-    async getProfile(req, res) {
+    async getProfile(req, res, next) {
         try {
-            const accessToken = req.cookies.accessToken;
-            const refreshToken = req.cookies.refreshToken;
-            if (!accessToken) {
-                if (!refreshToken) {
-                    return res.json({status: false, message: 'Ви не авторизовані!'});
-                } else {
-                    await jwt.verify(refreshToken, process.env.SECRET_REFRESH_KEY, (err, decoded) => {
-                        if (err) {
-                            return res.json({status: false, message: 'Невалідний токен оновлення!'});
-                        } else {
-                            const accessToken = generateAccessJwt(decoded.login, decoded.phone_num, decoded.name, decoded.surname);
-                            res.cookie('accessToken', accessToken, {maxAge: 900000});
-                        }
-                    });
-                }
-            }
-
-            const decoded = await jwt.verify(accessToken, process.env.SECRET_ACCESS_KEY);
-
-            const user = await User.findOne({where: {login: decoded.login}});
+            const user = await User.findOne({where: {login: req.login}});
             const possibleAvatar = await Avatars.findOne({where: {user_id: user.id}});
 
             let photo;

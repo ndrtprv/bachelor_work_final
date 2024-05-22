@@ -9,9 +9,10 @@ function Confirm() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_API_URL + 'user/confirm/' + token)
+        axios.post(process.env.REACT_APP_API_URL + 'user/confirm/' + token)
         .then(response => {
             if (response.data.status) {
+                alert(response.data.message);
                 navigate(USER_ROUTE);
             }
         })

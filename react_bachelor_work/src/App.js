@@ -1,13 +1,12 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
-import {observer} from "mobx-react-lite";
 import AppRouter from './components/app_router/AppRouter';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import { paths_data1, paths_data2, media_paths } from './utils/constants';
 
-const App = observer(() =>  {
+function App() {
 
   return (
       <div className='App'>
@@ -18,6 +17,6 @@ const App = observer(() =>  {
         </BrowserRouter>
       </div>
   );
-})
+}
 
 export default App;

@@ -1,6 +1,6 @@
 import './Contacts.css';
-import Feedback from './feedback/Feedback';
-import OtherContacts from './other_contacts/OtherContacts';
+import Feedback from '../../components/feedback/Feedback';
+import OtherContacts from '../../components/other_contacts/OtherContacts';
 
 function Contacts() {
     return (

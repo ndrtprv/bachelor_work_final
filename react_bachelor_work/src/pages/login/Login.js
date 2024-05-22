@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
-import {observer} from 'mobx-react-lite';
 import axios from 'axios';
 import './Login.css';
 import { Container} from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
-import { SIGNUP_ROUTE, LANDING_ROUTE, FORGOT_ROUTE } from '../../utils/constants';
+import { SIGNUP_ROUTE, FORGOT_ROUTE, USER_ROUTE } from '../../utils/constants';
 
-const Login = observer(() =>  {
+function Login() {
 
     const navigate = useNavigate();
 
@@ -24,8 +23,8 @@ const Login = observer(() =>  {
 
     axios.defaults.withCredentials = true;
     const logIn = async (e) => {
+        e.preventDefault();
         try {
-            e.preventDefault();
             await axios.post(process.env.REACT_APP_API_URL + 'user/login', 
                 {
                     login, password
@@ -33,7 +32,7 @@ const Login = observer(() =>  {
             ).then(response => {
                 console.log(response);
                 if (response.data.status) {
-                    navigate(LANDING_ROUTE);
+                    navigate(USER_ROUTE);
                 }
             }).catch(err => {
                 console.log(err.message);
@@ -69,6 +68,6 @@ const Login = observer(() =>  {
             </Container>
         </main>
     );
-});
+}
 
 export default Login;

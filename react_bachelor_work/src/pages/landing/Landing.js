@@ -9,8 +9,8 @@ import volunteer from '../../resources/volunteer.jpg';
 import about_fund from '../../resources/about_fund.jpg';
 import fundraise from '../../resources/fundraise.jpg';
 import results from '../../resources/results.jpg';
-import ContactForm from './contact_form/ContactForm';
-import Carousel from './carousel/Carousel';
+import ContactForm from '../../components/contact_form/ContactForm';
+import Carousel from '../../components/carousel/Carousel';
 import { ABOUT_ROUTE, FUNDRAISINGS_ROUTE, RESULTS_ROUTE, STAFF_ROUTE } from '../../utils/constants';
 
 function Landing(props) {
