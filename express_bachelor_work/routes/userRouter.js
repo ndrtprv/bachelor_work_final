@@ -53,6 +53,7 @@ router.post('/login', body('login').isEmail(), userController.login);
 router.post('/forgot-password', body('login').isEmail(), userController.forgotPassword);
 router.post('/reset-password/:token', userController.resetPassword);
 router.post('/confirm/:token', userController.confirm);
+router.post('/updateData', verifyUser, userController.updateData)
 router.get('/nav', verifyUser, userController.getNavigation)
 router.get('/profile', verifyUser, userController.getProfile);
 router.get('/logout', userController.logout);

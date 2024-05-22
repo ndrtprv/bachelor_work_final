@@ -279,6 +279,31 @@ class UserController {
         }
     }
 
+    async updateData(req, res, next) {
+        const { phone_num, name, surname, bio } = req.body;
+
+        try {
+            const user = await User.findOne({where: { login: req.login }});
+
+            if (phone_num !== user.phone_num) {
+                await User.update({phone_num: phone_num}, {where: {login: req.login}});
+            }
+            if (name !== user.name) {
+                await User.update({name: name}, {where: {login: req.login}});
+            }
+            if (surname !== user.surname) {
+                await User.update({surname: surname}, {where: {login: req.login}});
+            }
+            if (bio !== bio) {
+                await User.update({bio: bio}, {where: {login: req.login}});
+            }
+            
+            return res.json({status: true, message: "Оновлення даних успішно проведено!"});
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+    }
+
     async getNavigation(req, res, next) {
         try {
 

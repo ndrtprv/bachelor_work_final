@@ -1,6 +1,8 @@
+import { Container } from "react-bootstrap";
+
 function OtherContacts() {
     return (
-        <div className="d-flex flex-column justify-content-center contact-data">
+        <Container className="pl-3 pr-3 d-flex flex-column justify-content-center contact-data">
             <div>
                 <h2>Контактні дані</h2>
             </div>
@@ -12,7 +14,7 @@ function OtherContacts() {
                 <p><i className='fab fa-telegram'></i> <a href="https://t.me/ndrtprv">Telegram-канал</a></p>
                 <p><i className='fa-solid fa-phone'></i> <a href="tel:+380668202729">+38 (066) 820-27-29</a></p>
             </div>
-        </div>
+        </Container>
     );
 }
 
