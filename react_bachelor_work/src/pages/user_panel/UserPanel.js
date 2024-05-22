@@ -45,7 +45,7 @@ function UserPanel(props) {
           alert(response.data.message);
         }
       }).catch(err => {
-        console.log(err.message);
+        alert('Не вдалося надіслати листа за вказаною адресою. ' + err.message);
       });
     } catch (e) {
       alert(e.response.data.message);
@@ -63,12 +63,12 @@ function UserPanel(props) {
             <Container className="justify-content-center">
               <h3>{userData.name} {userData.surname}</h3>
             </Container>
-            <Container className="justify-content-center">
+            <Container className={verifiedData ? "justify-content-center" : "justify-content-center m-5"}>
               {
                 verifiedData ? 
                 <ChangeForm userData={userData} />
                 :
-                <Form action="post">
+                <Form action="post" className="m-12">
                   <h3><b>Ви не підтвердили свої дані. Зробіть це зараз.</b></h3>
                   <Button variant="primary" type="submit" onClick={handleSend} > 
                     Підтвердити дані

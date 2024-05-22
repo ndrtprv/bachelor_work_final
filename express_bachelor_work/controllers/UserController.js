@@ -123,14 +123,11 @@ class UserController {
     }
 
     async resend(req, res, next) {
-        const token = req.cookies.token;
-        console.log(token);
+        const accessToken = req.cookies.accessToken;
 
         try {
-            const decoded = jwt.verify(token, process.env.SECRET_KEY);
-            console.log(decoded);
-
-            const user = await User.findOne({where: {id: decoded.id}});
+            const decoded = jwt.verify(accessToken, process.env.SECRET_ACCESS_KEY);
+            const user = await User.findOne({where: {login: decoded.login}});
 
             const mailToken = generateJwtForMail(user.login, user.phone_num, user.name, user.surname);
 
@@ -147,7 +144,7 @@ class UserController {
 
             var mailOptions = {
                 from: process.env.ORIGIN_EMAIL,
-                to: login,
+                to: user.login,
                 subject: 'Підтвердження даних',
                 html: `<div>
                             <p>Вам надіслано повідомлення на підтвердження даних. Якщо це були не ви, повідомте нам: ми видалимо користувача.</p>
@@ -163,7 +160,7 @@ class UserController {
                 }
             });
         } catch(e) {
-            next(ApiError.badRequest(e.message));
+            next(ApiError.badRequest(e.message + req.cookies.accessToken));
         }
     }
 
