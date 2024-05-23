@@ -6,7 +6,6 @@ const { body } = require('express-validator');
 const jwt = require('jsonwebtoken');
 
 const storage = multer.memoryStorage();
-
 const upload = multer({ storage: storage });
 
 const generateAccessJwt = (login, phone_num, name, surname) => {

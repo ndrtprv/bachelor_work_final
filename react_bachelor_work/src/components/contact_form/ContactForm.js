@@ -42,34 +42,40 @@ function ContactForm() {
       <Form method="post" id="form-box" className="p-2" onSubmit={handleSendMessage}>
         <Form.Group className="input-group mb-2">
           <div className="input-group-prepend">
-            <span className="input-group-text"><i className="fas fa-user"></i></span>
+            <span className="input-group-text"><i className="fas fa-user"></i> <b><span style={{color: "red"}}>*</span></b></span>
           </div>
           <Form.Control type="text" name="name" placeholder="Введіть ваше ім'я" value={name} onChange={onChange} required />
         </Form.Group>
 
         <Form.Group className="input-group mt-2 mb-2">
           <div className="input-group-prepend">
-            <span className="input-group-text"><i className="fas fa-envelope"></i></span>
+            <span className="input-group-text"><i className="fas fa-envelope"></i> <b><span style={{color: "red"}}>*</span></b></span>
           </div>
           <Form.Control type="email" name="email" placeholder="Введіть ваш email" value={email} onChange={onChange} required />
         </Form.Group>
 
         <Form.Group className="input-group mt-2 mb-2">
           <div className="input-group-prepend">
-            <span className="input-group-text"><i className="fas fa-at"></i></span>
+            <span className="input-group-text"><i className="fas fa-at"></i> <b><span style={{color: "red"}}>*</span></b></span>
           </div>
           <Form.Control type="text" name="topic" placeholder="Тема листа" value={topic} onChange={onChange} required />
         </Form.Group>
 
         <Form.Group className="input-group mt-2 mb-2">
           <div className="input-group-prepend">
-            <span className="input-group-text"><i className="fas fa-comment-alt"></i></span>
+            <span className="input-group-text"><i className="fas fa-comment-alt"></i> <b><span style={{color: "red"}}>*</span></b></span>
           </div>
           <Form.Control as="textarea" type="text" name="text" id="text" placeholder="Ваше повідомлення..." cols="30" rows="4" value={text} onChange={onChange} required></Form.Control>
         </Form.Group>
         
         <Form.Group className="mt-2">
-          <Form.Control type="submit" name="submit" id="submit" className="btn btn-primary btn-block" value="Відправити" />
+          <Form.Control type="submit" name="submit" id="submit" className="btn btn-primary btn-block"
+            disabled={name === "" || email === "" || topic === "" || text === ""} value="Відправити" 
+          />
+        </Form.Group>
+
+        <Form.Group className="mt-3 registration-field" controlId="formBasicTip">
+          <Form.Label><b><span style={{color: "red"}}>*</span></b> - обов'язково до заповнення</Form.Label>
         </Form.Group>
       </Form>
     </Container>

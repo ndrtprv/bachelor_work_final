@@ -48,18 +48,22 @@ function Login() {
             <Form method="post">
                 <h2>Вхід до системи</h2>
                 <Form.Group className="mb-3 login-field" controlId="formBasicEmail">
-                    <Form.Label><b>Email</b></Form.Label>
+                    <Form.Label><b>Email <span style={{color: "red"}}>*</span></b></Form.Label>
                     <Form.Control type="email" placeholder="Введіть email" name="login" value={login} onChange={onChange} required />
                 </Form.Group>
 
                 <Form.Group className="mb-3 login-field" controlId="formBasicPassword">
-                    <Form.Label><b>Пароль</b></Form.Label>
+                    <Form.Label><b>Пароль <span style={{color: "red"}}>*</span></b></Form.Label>
                     <Form.Control type="password" placeholder="Введіть пароль" name="password" value={password} onChange={onChange} required />
                 </Form.Group>
 
-                <Button variant="primary" type="submit" onClick={logIn}>
+                <Button variant="primary" type="submit" disabled={login === "" || password === ""} onClick={logIn}>
                     Увійти
                 </Button>
+
+                <Form.Group className="mt-3 registration-field" controlId="formBasicTip">
+                    <Form.Label><b><span style={{color: "red"}}>*</span></b> - обов'язково до заповнення</Form.Label>
+                </Form.Group>
             </Form>
             
             <Container style={{backgroundColor: 'beige', borderRadius: '0.5em', display: 'inline-flex', flexDirection: 'column'}} >

@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { LANDING_ROUTE } from '../../utils/constants';
 import './UserPanel.css';
 import ChangeForm from '../../components/change_form/ChangeForm';
+import NoticeForm from '../../components/notice_form/NoticeForm';
+import NoticeList from '../../components/notice_list/NoticeList';
 
 function UserPanel(props) {
 
@@ -80,13 +82,12 @@ function UserPanel(props) {
         </Row>
         {
           verifiedData ? 
+          <>
           <Accordion>
             <Accordion.Item eventKey="0">
               <Accordion.Header>Форма додавання оголошення</Accordion.Header>
               <Accordion.Body>
-                <Form action="post">
-
-                </Form>
+                <NoticeForm />
               </Accordion.Body>
             </Accordion.Item>
 
@@ -108,6 +109,8 @@ function UserPanel(props) {
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
+          <NoticeList/>
+          </>
           :
           <></>
         }

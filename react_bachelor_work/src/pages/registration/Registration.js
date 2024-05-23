@@ -22,8 +22,8 @@ function Registration() {
         surname: "",
         bio: "",
         avatar: undefined,
-        isAdminCandidate: false,
-        hideData: false
+        isAdminCandidate: "",
+        hideData: ""
     });
 
     const { login, phone_num, password, name, surname, bio, avatar, isAdminCandidate, hideData } = formData;
@@ -145,7 +145,14 @@ function Registration() {
                 </Form.Group>
 
                 <Button variant="primary" type="submit" 
-                    disabled={password !== confirmationPassword || password === "" || confirmationPassword === "" || !agreement} 
+                    disabled={
+                        login === "" || phone_num === "" ||
+                        name === "" || surname === "" ||
+                        isAdminCandidate === "" || hideData === "" ||
+                        password !== confirmationPassword ||
+                        password === "" || confirmationPassword === "" ||
+                        !agreement
+                    } 
                     onClick={signup}
                 >
                     Зареєструватися

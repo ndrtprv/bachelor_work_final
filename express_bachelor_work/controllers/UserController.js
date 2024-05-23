@@ -31,7 +31,6 @@ const generateJwtForMail = (login, phone_num, name, surname) => {
 
 class UserController {
     async registration(req, res, next) {
-        console.log('Request received:', req.body, req.file); 
 
         const { login, phone_num, password, name, surname, bio, isAdminCandidate, hideData } = req.body;
 
@@ -181,6 +180,7 @@ class UserController {
 
     async login(req, res, next) {
         const { login, password } = req.body;
+        
         try {
             const errors = validationResult(req);
 

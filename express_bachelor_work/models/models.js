@@ -16,7 +16,8 @@ const User = sequelize.define('user', {
 
 const Admin = sequelize.define('admin', {
     admin_id: {type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true},
-    status: {type: DataTypes.SMALLINT, allowNull: false}
+    status: {type: DataTypes.SMALLINT, allowNull: false},
+    role: {type: DataTypes.STRING, allowNull: false, defaultValue: "Адмін"}
 });
 
 const Avatars = sequelize.define('avatars', {
@@ -29,7 +30,8 @@ const Notice = sequelize.define('notice', {
     id: {type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true},
     type: {type: DataTypes.SMALLINT, allowNull: false},
     kind: {type: DataTypes.STRING, allowNull: false},
-    description: {type: DataTypes.TEXT}
+    description: {type: DataTypes.TEXT, allowNull: false},
+    createdAt: {type: DataTypes.DATE, allowNull: false}
 });
 
 const Fundraise = sequelize.define('fundraise', {
@@ -37,15 +39,17 @@ const Fundraise = sequelize.define('fundraise', {
     type: {type: DataTypes.SMALLINT, allowNull: false},
     whom: {type: DataTypes.STRING, allowNull: false},
     kind: {type: DataTypes.STRING, allowNull: false},
-    description: {type: DataTypes.TEXT},
+    description: {type: DataTypes.TEXT, allowNull: false},
     target_sum: {type: DataTypes.DECIMAL(2), allowNull: false},
-    status: {type: DataTypes.SMALLINT, allowNull: false}
+    status: {type: DataTypes.SMALLINT, allowNull: false},
+    createdAt: {type: DataTypes.DATE, allowNull: false}
 });
 
 const Result = sequelize.define('result', {
     id: {type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true},
     src_photo: {type: DataTypes.BLOB, allowNull: false},
     description: {type: DataTypes.STRING, allowNull: false},
+    createdAt: {type: DataTypes.DATE, allowNull: false}
 });
 
 const Photo = sequelize.define('photo', {
