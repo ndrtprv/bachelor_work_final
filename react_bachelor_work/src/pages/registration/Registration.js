@@ -33,8 +33,17 @@ function Registration() {
             setFormData({ ...formData, [e.target.name]: e.target.files[0] })
         } else {
             setFormData({ ...formData, [e.target.name]: e.target.value })
+            if (e.target.name === "password") {
+                if (!e.target.value.match(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z\d])[A-Za-z\d\W]{8,}$/)) {
+                    setDisableButton(true);
+                } else {
+                    setDisableButton(false);
+                }
+            }
         }
     };
+
+    const [disableButton, setDisableButton] = useState(true);
 
     const [confirmationPassword, setConfirmationPassword] = useState("");
 
@@ -126,7 +135,10 @@ function Registration() {
 
                 <Form.Group className="mb-3 registration-field" controlId="formBasicPassword">
                     <Form.Label><b>Пароль <span style={{color: "red"}}>*</span></b></Form.Label>
-                    <Form.Control type="password" placeholder="Введіть пароль" name="password" value={password} onChange={onChange} required />
+                    <Form.Control type="password" placeholder="Введіть пароль" name="password" 
+                        pattern="/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z\d])[A-Za-z\d\W]{8,}$/" 
+                        value={password} onChange={onChange} required 
+                    />
                 </Form.Group>
 
                 <Form.Group className="mb-3 registration-field" controlId="formBasicConfirmPassword">
@@ -159,7 +171,7 @@ function Registration() {
                         login === "" || phone_num === "" ||
                         name === "" || surname === "" ||
                         isAdminCandidate === "" || hideData === "" ||
-                        password !== confirmationPassword ||
+                        disableButton || password !== confirmationPassword ||
                         password === "" || confirmationPassword === "" ||
                         !agreement
                     } 
@@ -170,6 +182,11 @@ function Registration() {
 
                 <Form.Group className="mt-3 registration-field" controlId="formBasicTip">
                     <Form.Label><b><span style={{color: "red"}}>*</span></b> - обов'язково до заповнення</Form.Label>
+                    <Form.Label>Пароль має містити не менше 8 символів</Form.Label>
+                    <Form.Label>Пароль має містити мінімум 1 велику літеру</Form.Label>
+                    <Form.Label>Пароль має містити мінімум 1 малу літеру</Form.Label>
+                    <Form.Label>Пароль має містити мінімум 1 цифру</Form.Label>
+                    <Form.Label>Пароль має містити мінімум 1 символ</Form.Label>
                 </Form.Group>
             </Form>
 

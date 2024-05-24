@@ -358,6 +358,26 @@ class UserController {
             next(ApiError.badRequest(e.message))
         }
     }
+
+    async delete(req, res, next) {
+        try {
+
+            const user = await User.findOne({where: {login: req.login}});
+
+            if (user) {
+                await User.destroy({where: {login: user.login}});
+
+                res.clearCookie('accessToken');
+                res.clearCookie('refreshToken');
+
+                return res.json({status: true, message: 'Видалення користувача успішне!'});
+            } else {
+                return res.json({status: false, message: 'Користувача не знайдено!'});
+            }
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+    }
 }
 
 module.exports = new UserController();

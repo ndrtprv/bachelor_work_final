@@ -58,29 +58,29 @@ const Photo = sequelize.define('photo', {
     contentType: {type: DataTypes.STRING, allowNull: false}
 });
 
-User.hasOne(Admin, {foreignKey: 'user_id', sourceKey: 'id'});
+User.hasOne(Admin, {foreignKey: 'user_id', sourceKey: 'id', onDelete: 'cascade', hooks: true});
 Admin.belongsTo(User, {foreignKey: 'user_id', targetKey: 'id', onDelete: 'cascade', onUpdate: 'cascade'});
 
-User.hasOne(Avatars, {foreignKey: 'user_id', sourceKey: 'id'});
+User.hasOne(Avatars, {foreignKey: 'user_id', sourceKey: 'id', onDelete: 'cascade', hooks: true});
 Avatars.belongsTo(User, {foreignKey: 'user_id', targetKey: 'id', onDelete: 'cascade', onUpdate: 'cascade'});
 
-User.hasMany(Notice, {foreignKey: 'user_id', sourceKey: 'id'});
+User.hasMany(Notice, {foreignKey: 'user_id', sourceKey: 'id', onDelete: 'cascade', hooks: true});
 Notice.belongsTo(User, {foreignKey: 'user_id', targetKey: 'id', onDelete: 'cascade', onUpdate: 'cascade'});
 
-User.hasMany(Fundraise, {foreignKey: 'user_id', sourceKey: 'id'});
+User.hasMany(Fundraise, {foreignKey: 'user_id', sourceKey: 'id', onDelete: 'cascade', hooks: true});
 Fundraise.belongsTo(User, {foreignKey: 'user_id', targetKey: 'id', onDelete: 'cascade', onUpdate: 'cascade'});
 
-Notice.hasMany(Photo, {foreignKey: 'notice_id', sourceKey: 'id'});
-Photo.belongsTo(Notice, {foreignKey: 'notice_id', targetKey: 'id', onUpdate: 'cascade'});
+Notice.hasMany(Photo, {foreignKey: 'notice_id', sourceKey: 'id', onDelete: 'cascade', hooks: true});
+Photo.belongsTo(Notice, {foreignKey: 'notice_id', targetKey: 'id', onDelete: 'cascade', onUpdate: 'cascade'});
 
-Fundraise.hasMany(Photo, {foreignKey: 'fundraise_id', sourceKey: 'id'});
-Photo.belongsTo(Fundraise, {foreignKey: 'fundraise_id', targetKey: 'id', onUpdate: 'cascade'});
+Fundraise.hasMany(Photo, {foreignKey: 'fundraise_id', sourceKey: 'id', onDelete: 'cascade', hooks: true});
+Photo.belongsTo(Fundraise, {foreignKey: 'fundraise_id', targetKey: 'id', onDelete: 'cascade', onUpdate: 'cascade'});
 
-Fundraise.hasOne(Result, {foreignKey: 'fundraise_id', sourceKey: 'id'});
+Fundraise.hasOne(Result, {foreignKey: 'fundraise_id', sourceKey: 'id', onDelete: 'cascade', hooks: true});
 Result.belongsTo(Fundraise, {foreignKey: 'fundraise_id', targetKey: 'id', onDelete: 'cascade', onUpdate: 'cascade'});
 
-Result.hasMany(Photo, {foreignKey: 'result_id', sourceKey: 'id'});
-Photo.belongsTo(Result, {foreignKey: 'result_id', targetKey: 'id', onUpdate: 'cascade'});
+Result.hasMany(Photo, {foreignKey: 'result_id', sourceKey: 'id', onDelete: 'cascade', hooks: true});
+Photo.belongsTo(Result, {foreignKey: 'result_id', targetKey: 'id', onDelete: 'cascade', onUpdate: 'cascade'});
 
 module.exports = {
     User,

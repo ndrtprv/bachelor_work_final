@@ -56,5 +56,6 @@ router.post('/updateData', verifyUser, userController.updateData)
 router.get('/nav', verifyUser, userController.getNavigation)
 router.get('/profile', verifyUser, userController.getProfile);
 router.get('/logout', userController.logout);
+router.delete('/deleteUser', verifyUser, userController.delete)
 
 module.exports = router;

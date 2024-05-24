@@ -71,6 +71,7 @@ function NoticeForm() {
             <Form.Group className="mb-3 registration-field" controlId="formBasicKind">
                 <Form.Label><b>Вид допомоги <span style={{color: "red"}}>*</span></b></Form.Label>
                 <Form.Select type="text" placeholder="Оберіть вид матеріальної допомоги" name="kind" value={kind} onChange={onChange} required >
+                    <option value={""}></option>
                     <option value={"Авто"}>Авто</option>
                     <option value={"БПЛА"}>БПЛА</option>
                     <option value={"Медичне спорядження"}>Медичне спорядження</option>

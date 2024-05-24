@@ -60,7 +60,7 @@ function ForgotPassword() {
           <Form.Control type="email" placeholder="Введіть ваш email" name="login" value={login} onChange={(e) => setLogin(e.target.value)} required />
         </Form.Group>
 
-        <Button variant="primary" type="submit" onClick={forgotPassword}>
+        <Button variant="primary" type="submit" onClick={forgotPassword} disabled={login === ""}>
           Відправити посилання на пошту
         </Button>
       </Form>
