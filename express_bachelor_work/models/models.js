@@ -9,7 +9,7 @@ const User = sequelize.define('user', {
     name: {type: DataTypes.STRING(300), allowNull: false},
     surname: {type: DataTypes.STRING(300), allowNull: false},
     bio: {type: DataTypes.TEXT},
-    hideData: {type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false},
+    hideData: {type: DataTypes.BOOLEAN, allowNull: false},
     createdAt: {type: DataTypes.DATE, allowNull: false},
     verifiedAt: {type: DataTypes.DATE}
 });
@@ -17,7 +17,7 @@ const User = sequelize.define('user', {
 const Admin = sequelize.define('admin', {
     admin_id: {type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true},
     status: {type: DataTypes.SMALLINT, allowNull: false},
-    role: {type: DataTypes.STRING, allowNull: false, defaultValue: "Адмін"}
+    role: {type: DataTypes.STRING, allowNull: false, defaultValue: "Адміністратор"}
 });
 
 const Avatars = sequelize.define('avatars', {
