@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import {useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
-import { LOGIN_ROUTE } from '../../utils/constants';
+import { LOGIN_ROUTE, USER_ROUTE } from '../../utils/constants';
 
 function ResetPassword() {
 
@@ -11,6 +11,18 @@ function ResetPassword() {
 
     const [password, setPassword] = useState("");
     const [confirmationPassword, setConfirmationPassword] = useState("");
+
+    axios.defaults.withCredentials = true;
+    useEffect(() => {
+        axios.get(process.env.REACT_APP_API_URL + 'user/nav')
+        .then(res => {
+            if (res.data.status) {
+                navigate(USER_ROUTE);
+            }
+        }).catch(err => {
+            console.log(err.message);
+        })
+    });
 
     const resetPassword = async (e) => {
         try {

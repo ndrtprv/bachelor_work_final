@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import axios from 'axios';
@@ -22,6 +22,17 @@ function Login() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
 
     axios.defaults.withCredentials = true;
+    useEffect(() => {
+        axios.get(process.env.REACT_APP_API_URL + 'user/nav')
+        .then(res => {
+            if (res.data.status) {
+                navigate(USER_ROUTE);
+            }
+        }).catch(err => {
+            console.log(err.message);
+        })
+    });
+
     const logIn = async (e) => {
         e.preventDefault();
         try {
@@ -30,12 +41,11 @@ function Login() {
                     login, password
                 }
             ).then(response => {
-                console.log(response);
                 if (response.data.status) {
                     navigate(USER_ROUTE);
                 }
             }).catch(err => {
-                console.log(err.message);
+                alert(err.message);
             });
         } catch (e) {
             alert(e.response.data.message);

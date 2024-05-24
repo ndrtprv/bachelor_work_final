@@ -1,4 +1,4 @@
-import axios from 'axios';
+/*import axios from 'axios';
 import React, { useEffect } from 'react'
 import { Accordion } from 'react-bootstrap';
 
@@ -22,4 +22,4 @@ function NoticeList() {
     )
 }
 
-export default NoticeList
+export default NoticeList*/

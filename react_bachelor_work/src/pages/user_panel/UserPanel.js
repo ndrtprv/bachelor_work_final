@@ -7,7 +7,7 @@ import { LANDING_ROUTE } from '../../utils/constants';
 import './UserPanel.css';
 import ChangeForm from '../../components/change_form/ChangeForm';
 import NoticeForm from '../../components/notice_form/NoticeForm';
-import NoticeList from '../../components/notice_list/NoticeList';
+//import NoticeList from '../../components/notice_list/NoticeList';
 
 function UserPanel(props) {
 
@@ -19,9 +19,9 @@ function UserPanel(props) {
 
   axios.defaults.withCredentials = true;
   useEffect(() => {
-      axios.get(process.env.REACT_APP_API_URL + 'user/profile')
-      .then(res => {
-        if (res.data.status) {
+    axios.get(process.env.REACT_APP_API_URL + 'user/profile')
+    .then(res => {
+      if (res.data.status) {
         setUserData(res.data.user);
           
         if (res.data.user.verifiedAt === null) {
@@ -31,10 +31,10 @@ function UserPanel(props) {
         if (res.data.portrait !== null) {
           setAvatar(res.data.portrait);
         }
-        } else {
-          navigate(LANDING_ROUTE);
-        }
-      })
+      } else {
+        navigate(LANDING_ROUTE);
+      }
+    })
   });
 
   const handleSend = async (e) => {
@@ -109,7 +109,7 @@ function UserPanel(props) {
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
-          <NoticeList/>
+          
           </>
           :
           <></>

@@ -1,11 +1,11 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './Registration.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
-import { LOGIN_ROUTE } from '../../utils/constants';
+import { LOGIN_ROUTE, USER_ROUTE } from '../../utils/constants';
 import axios from 'axios';
 
 import { LANDING_ROUTE } from '../../utils/constants';
@@ -41,6 +41,17 @@ function Registration() {
     const [agreement, setAgreement] = useState(false);
 
     axios.defaults.withCredentials = true;
+    useEffect(() => {
+        axios.get(process.env.REACT_APP_API_URL + 'user/nav')
+        .then(res => {
+            if (res.data.status) {
+                navigate(USER_ROUTE);
+            }
+        }).catch(err => {
+            console.log(err.message);
+        })
+    });
+    
     const signup = async (e) => {
         e.preventDefault();
         try {
@@ -66,13 +77,12 @@ function Registration() {
                     }
                 }
             ).then(response => {
-                console.log(response);
                 if (response.data.status) {
                     navigate(LANDING_ROUTE);
                     alert("Повідомлення про підтвердження даних надіслано на вашу пошту. Дійсне 15 хвилин.");
                 }
             }).catch(err => {
-                console.log(err.message);
+                alert(err.message);
             });
         } catch (e) {
             alert(e.response.data.message);
