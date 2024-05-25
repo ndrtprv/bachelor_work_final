@@ -9,11 +9,16 @@ import volunteer from '../../resources/volunteer.jpg';
 import about_fund from '../../resources/about_fund.jpg';
 import fundraise from '../../resources/fundraise.jpg';
 import results from '../../resources/results.jpg';
-import ContactForm from '../../components/contact_form/ContactForm';
 import Carousel from '../../components/carousel/Carousel';
 import { ABOUT_ROUTE, FUNDRAISINGS_ROUTE, RESULTS_ROUTE, STAFF_ROUTE } from '../../utils/constants';
+import Feedback from '../../components/feedback/Feedback';
 
 function Landing(props) {
+
+  const headerFeedback = "Зворотній зв'язок";
+  const textFeedback = "Якщо вас цікавлять певні питання, зв'яжіться з нами, заповнивши форму.";
+  const classNameContainer = "d-flex flex-column justify-content-center";
+  const classNameForm = "p-2";
 
   return (
     <main>
@@ -81,7 +86,7 @@ function Landing(props) {
         </div>
         <hr className="featurette-divider"/>
         <div className="row featurette">
-          <ContactForm />
+          <Feedback isSmall={false} headerFeedback={headerFeedback} textFeedback={textFeedback} classNameContainer={classNameContainer} classNameForm={classNameForm} />
         </div>
       </div>
     </main>

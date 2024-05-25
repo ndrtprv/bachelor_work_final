@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Container, Form } from "react-bootstrap";
 
-function Feedback() {
+function Feedback(props) {
 
     const [feedbackData, setFeedbackData] = useState({
         name: "",
@@ -17,26 +17,37 @@ function Feedback() {
         setFeedbackData({ ...feedbackData, [e.target.name]: e.target.value });
     };
 
+    const classNameContainer = !props.isSmall ? props.classNameContainer : "";
+
     const handleSendMessage = async (e) => {
         e.preventDefault();
         try {
-          await axios.post(process.env.REACT_APP_API_URL + 'feedback/send', feedbackData)
-          .then(response => {
-            console.log(response);
-            if (response.data.status) {
-              alert(response.data.message);
-            }
-          }).catch(err => {
-            console.log(err.message);
-          });
+            await axios.post(process.env.REACT_APP_API_URL + 'feedback/send', feedbackData)
+            .then(response => {
+                console.log(response);
+                if (response.data.status) {
+                    alert(response.data.message);
+                }
+            }).catch(err => {
+                alert(err.message);
+            });
         } catch (e) {
-          alert(e.response.data.message);
+            alert(e.response.data.message);
         }
     }
 
     return (
-        <Container>
-            <Form method="post" id="form-box" className="m-5 p-2" onSubmit={handleSendMessage}>
+        <Container className={classNameContainer}>
+            {
+                !props.isSmall ?
+                <>
+                    <h2 className="featurette-heading lat-h2">{props.headerFeedback}</h2>
+                    <p className="lead">{props.textFeedback}</p>
+                </>
+                :
+                <></>
+            }
+            <Form method="post" id="form-box" className={props.classNameForm} onSubmit={handleSendMessage}>
                 <Form.Group className="input-group mb-2">
                     <div className="input-group-prepend">
                         <span className="input-group-text"><i className="fas fa-user"></i> <b><span style={{color: "red"}}>*</span></b></span>
