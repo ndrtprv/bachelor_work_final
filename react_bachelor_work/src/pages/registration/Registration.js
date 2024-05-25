@@ -34,7 +34,7 @@ function Registration() {
         } else {
             setFormData({ ...formData, [e.target.name]: e.target.value })
             if (e.target.name === "password") {
-                if (!e.target.value.match(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z\d])[A-Za-z\d\W]{8,}$/)) {
+                if (!e.target.value.match(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z\d])[A-Za-z\d\W]{8,255}$/)) {
                     setDisableButton(true);
                 } else {
                     setDisableButton(false);
@@ -57,7 +57,7 @@ function Registration() {
                 navigate(USER_ROUTE);
             }
         }).catch(err => {
-            console.log(err.message);
+            alert(err.message);
         })
     });
     
@@ -136,7 +136,7 @@ function Registration() {
                 <Form.Group className="mb-3 registration-field" controlId="formBasicPassword">
                     <Form.Label><b>Пароль <span style={{color: "red"}}>*</span></b></Form.Label>
                     <Form.Control type="password" placeholder="Введіть пароль" name="password" 
-                        pattern="/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z\d])[A-Za-z\d\W]{8,}$/" 
+                        pattern="/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z\d])[A-Za-z\d\W]{8,255}$/" 
                         value={password} onChange={onChange} required 
                     />
                 </Form.Group>

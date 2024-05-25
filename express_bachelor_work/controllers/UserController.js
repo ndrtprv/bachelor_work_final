@@ -117,7 +117,7 @@ class UserController {
 
             return res.json({status: true, message: "Реєстрація успішна!"});
         } catch(e) {
-            next(ApiError.badRequest(e.message));
+            next(ApiError.internal(e.message));
         }
     }
 
@@ -159,7 +159,7 @@ class UserController {
                 }
             });
         } catch(e) {
-            next(ApiError.badRequest(e.message + req.cookies.accessToken));
+            next(ApiError.internal(e.message + req.cookies.accessToken));
         }
     }
 
@@ -174,7 +174,7 @@ class UserController {
             await User.update({verifiedAt: verifiedAt}, {where: {login: decoded.login}});
             return res.json({status: true, message: 'Користувача підтверджено! Вітаю!'});
         } catch(e) {
-            next(ApiError.badRequest(e.message));
+            next(ApiError.internal(e.message));
         }
     }
 
@@ -206,7 +206,7 @@ class UserController {
 
             return res.json({status: true, message: "Авторизація успішна!"});
         } catch (e) {
-            next(ApiError.badRequest(e.message))
+            next(ApiError.internal(e.message))
         }
     }
 
@@ -256,7 +256,7 @@ class UserController {
                 }
             });
         } catch (e) {
-            next(ApiError.badRequest(e.message))
+            next(ApiError.internal(e.message))
         }
     }
 
@@ -272,7 +272,7 @@ class UserController {
 
             return res.json({status: true, message: 'Пароль оновлено!'});
         } catch (e) {
-            next(ApiError.badRequest(e.message))
+            next(ApiError.internal(e.message))
         }
     }
 
@@ -297,7 +297,7 @@ class UserController {
             
             return res.json({status: true, message: "Оновлення даних успішно проведено!"});
         } catch (e) {
-            next(ApiError.badRequest(e.message))
+            next(ApiError.internal(e.message))
         }
     }
 
@@ -324,7 +324,7 @@ class UserController {
                 return res.json({status: true, isAdmin: false, portrait: photo, message: 'Ви авторизовані!'});
             }
         } catch (e) {
-            next(ApiError.badRequest(e.message))
+            next(ApiError.internal(e.message))
         }
     }
 
@@ -345,7 +345,7 @@ class UserController {
 
             return res.json({status: true, user, portrait: photo, message: 'Ви авторизовані!'});
         } catch (e) {
-            next(ApiError.badRequest(e.message))
+            next(ApiError.internal(e.message))
         }
     }
 
@@ -355,7 +355,7 @@ class UserController {
             res.clearCookie('refreshToken');
             return res.json({status: true, message: 'Вихід успішний!'});
         } catch (e) {
-            next(ApiError.badRequest(e.message))
+            next(ApiError.internal(e.message))
         }
     }
 
@@ -375,7 +375,7 @@ class UserController {
                 return res.json({status: false, message: 'Користувача не знайдено!'});
             }
         } catch (e) {
-            next(ApiError.badRequest(e.message))
+            next(ApiError.internal(e.message))
         }
     }
 }

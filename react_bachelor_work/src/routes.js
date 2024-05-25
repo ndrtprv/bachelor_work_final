@@ -55,7 +55,7 @@ export const publicRoutes = [
         Component: <Staff />
     },
     {
-        path: FUNDRAISINGS_ROUTE,
+        path: FUNDRAISINGS_ROUTE + '/:id',
         Component: <Fundraisings />
     },
     {
@@ -63,7 +63,7 @@ export const publicRoutes = [
         Component: <Notices />
     },
     {
-        path: RESULTS_ROUTE,
+        path: RESULTS_ROUTE + '/:id',
         Component: <Results />
     },
     {

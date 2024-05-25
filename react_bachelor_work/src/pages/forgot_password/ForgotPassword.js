@@ -46,8 +46,8 @@ function ForgotPassword() {
   return (
     <main className='mt-5'>
       {notification !== undefined ? 
-        <Container style={{backgroundColor: 'green'}}>
-          {notification}
+        <Container style={{backgroundColor: 'green', color: 'white'}}>
+          <b>{notification}</b>
         </Container>
         : <></>
       }
