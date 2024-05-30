@@ -8,7 +8,7 @@ import './UserPanel.css';
 import ChangeForm from '../../components/change_form/ChangeForm';
 import NoticeForm from '../../components/notice_form/NoticeForm';
 import DeleteUser from '../../components/modals/DeleteUser';
-//import NoticeList from '../../components/notice_list/NoticeList';
+import NoticeList from '../../components/notice_list/NoticeList';
 
 function UserPanel(props) {
 
@@ -111,7 +111,7 @@ function UserPanel(props) {
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
-          
+          <NoticeList />
           </>
           :
           <></>

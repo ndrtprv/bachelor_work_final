@@ -70,8 +70,35 @@ class NoticeController {
             const decoded = jwt.verify(accessToken, process.env.SECRET_ACCESS_KEY);
             const user = await User.findOne({where: {login: decoded.login}});
 
-            const allNotices = await Notice.findAll({where: {user_id: user.id}});
+            const notices = await Notice.findAll({
+                where: {
+                    user_id: user.id
+                },
+                include: [
+                    {
+                        model: Photo,
+                        as: 'photos',
+                        attributes: ['photo_id', 'src_photo', 'contentType']
+                    }
+                ]
+            });
+
+            const noticesProcessed = notices.map(notice => {
+                const photosWithBase64 = notice.photos.map(photo => {
+                    return {
+                        photo_id: photo.photo_id,
+                        src_photo: photo.src_photo.toString('base64'), // Convert bytea to base64
+                        contentType: photo.contentType
+                    };
+                });
+    
+                return {
+                    ...notice.toJSON(),
+                    photos: photosWithBase64
+                };
+            });
             
+            return res.json(noticesProcessed);
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }

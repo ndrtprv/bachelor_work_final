@@ -9,7 +9,7 @@ import volunteer from '../../resources/volunteer.jpg';
 import about_fund from '../../resources/about_fund.jpg';
 import fundraise from '../../resources/fundraise.jpg';
 import results from '../../resources/results.jpg';
-import Carousel from '../../components/carousel/Carousel';
+import LandingCarousel from '../../components/carousel/LandingCarousel';
 import { ABOUT_ROUTE, FUNDRAISINGS_ROUTE, RESULTS_ROUTE, STAFF_ROUTE } from '../../utils/constants';
 import Feedback from '../../components/feedback/Feedback';
 
@@ -22,7 +22,7 @@ function Landing(props) {
 
   return (
     <main>
-      <Carousel uaf_help={uaf_help} humanitarian={humanitarian} volunteer={volunteer} />
+      <LandingCarousel uaf_help={uaf_help} humanitarian={humanitarian} volunteer={volunteer} />
       <div className="container marketing">
         <div className="row featurette start_elem">
           <div className="col-md-7 txt_field">
