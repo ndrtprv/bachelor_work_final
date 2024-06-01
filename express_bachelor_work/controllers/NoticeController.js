@@ -63,12 +63,22 @@ class NoticeController {
     }
 
     async getUsersNotices(req, res, next) {
+        const {activePage} = req.body;
         const accessToken = req.cookies.accessToken;
+
+        console.log("Active page: " + JSON.stringify(req.activePage))
+        let limit = 5;
+        let currentPage = activePage || 1;
+
+        let offset = limit * currentPage - limit;
 
         try {
 
             const decoded = jwt.verify(accessToken, process.env.SECRET_ACCESS_KEY);
             const user = await User.findOne({where: {login: decoded.login}});
+
+            const count = await Notice.count({where: {user_id: user.id}})
+            let pages = Math.ceil(count / limit);
 
             const notices = await Notice.findAll({
                 where: {
@@ -80,7 +90,10 @@ class NoticeController {
                         as: 'photos',
                         attributes: ['photo_id', 'src_photo', 'contentType']
                     }
-                ]
+                ],
+                limit,
+                offset,
+                order: [['createdAt', 'DESC']]
             });
 
             const noticesProcessed = notices.map(notice => {
@@ -98,7 +111,7 @@ class NoticeController {
                 };
             });
             
-            return res.json(noticesProcessed);
+            return res.json({noticesProcessed, pages, message: "OK"});
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }

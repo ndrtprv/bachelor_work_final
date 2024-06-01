@@ -7,6 +7,6 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 router.post('/add', upload.single('photo'), noticeController.addNotice);
-router.get('/getUsersNotices', noticeController.getUsersNotices);
+router.post('/getUsersNotices', noticeController.getUsersNotices);
 
 module.exports = router;

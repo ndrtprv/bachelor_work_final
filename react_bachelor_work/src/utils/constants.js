@@ -6,7 +6,11 @@ export const paths_data1 = {
 };
 
 export const paths_data2 = {
-    '/fundraisings': 'Допомога',
+    '/notices': 'Оголошення',
+    '/fundraisings': 'Збори'
+};
+
+export const paths_data3 = {
     '/results': 'Звіти',
     '/contacts': 'Контакти',
     '/faq': 'FAQ'

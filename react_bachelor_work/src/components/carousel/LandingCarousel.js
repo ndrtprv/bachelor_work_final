@@ -28,7 +28,7 @@ function LandingCarousel(props) {
                 <Container >
                     <CarouselCaption >
                         <h1 className='d-inline-block mb-1 mont'>Гуманітарна допомога</h1>
-                        <p className='rob carous'>Наша спільна діяльність спрямована на полегшення страждань та покращення умов тих, хто потребує допомоги, у тому числі постраждалим від війни.</p>
+                        <p className='rob carous'>Наша спільна діяльність спрямована на покращення умов тих, хто потребує допомоги, у тому числі постраждалим від війни.</p>
                         <p className='rob-btn'><NavLink className="btn btn-lg btn-primary" to={FUNDRAISINGS_ROUTE} >Пожертвувати</NavLink></p>
                     </CarouselCaption>
                 </Container>

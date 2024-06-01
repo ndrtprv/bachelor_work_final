@@ -59,7 +59,12 @@ function NavigationPanel(props) {
                                 <NavLink key={path} to={path} className="dropdown-item lat">{label}</NavLink>
                             )}
                         </NavDropdown>
-                        {Object.entries(props.data2).map(([path, label]) =>
+                        <NavDropdown title="Допомога" className="nav-item dropdown">
+                            {Object.entries(props.data2).map(([path, label]) =>
+                                <NavLink key={path} to={path} className="dropdown-item lat">{label}</NavLink>
+                            )}
+                        </NavDropdown>
+                        {Object.entries(props.data3).map(([path, label]) =>
                             <NavLink key={path} to={path} className="nav-link lat">{label}</NavLink>
                         )}
                     </Nav>
