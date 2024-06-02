@@ -67,7 +67,7 @@ function NoticeList() {
                                         )}
                                     </Col>
                                     <Col>
-                                        <p>Тип допомоги: {notice.type}</p>
+                                        <p>Тип допомоги: {notice.typeDescription}</p>
                                         <p>Вид допомоги: {notice.kind}</p>
                                         <p>Опис:</p>
                                         <p>{notice.description}</p>

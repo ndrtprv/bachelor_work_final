@@ -12,9 +12,9 @@ function LandingCarousel(props) {
     };
 
     return (
-        <Carousel id="myCarousel" className="slide" data-bs-ride="carousel" activeIndex={index} onSelect={handleSelect}>
+        <Carousel id="myCarousel" data-bs-ride="carousel" activeIndex={index} onSelect={handleSelect}>
             <CarouselItem >
-                <svg className="bd-placeholder-img img-uaf" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><image href={props.uaf_help} width="100%" height="100%" /></svg>
+                <svg className="bd-placeholder-img img-uaf" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><image href={props.uaf_help} alt="Help" width="100%" height="100%" /></svg>
                 <Container >
                     <CarouselCaption className="text-start">
                         <h1 className='d-inline-block mb-1 mont'>Допомога ЗСУ</h1>
@@ -24,7 +24,7 @@ function LandingCarousel(props) {
                 </Container>
             </CarouselItem>
             <CarouselItem >
-                <svg className="bd-placeholder-img img-hum" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><image href={props.humanitarian} width="100%" height="100%" /></svg>
+                <svg className="bd-placeholder-img img-hum" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><image href={props.humanitarian} alt="Humanitarian" width="100%" height="100%" /></svg>
                 <Container >
                     <CarouselCaption >
                         <h1 className='d-inline-block mb-1 mont'>Гуманітарна допомога</h1>
@@ -34,7 +34,7 @@ function LandingCarousel(props) {
                 </Container>
             </CarouselItem>
             <CarouselItem >
-                <svg className="bd-placeholder-img img-vol" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><image href={props.volunteer} width="100%" height="100%" /></svg>
+                <svg className="bd-placeholder-img img-vol" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><image href={props.volunteer} alt="Volunteer" width="100%" height="100%" /></svg>
                 <Container >
                     <CarouselCaption className="text-end">
                         <h1 className='d-inline-block mb-1 mont'>Стати волонтером</h1>

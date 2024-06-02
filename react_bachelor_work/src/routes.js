@@ -9,19 +9,19 @@ import {
     ABOUT_ROUTE, ADMIN_ROUTE, CONTACTS_ROUTE, FAQ_ROUTE,
     FUNDRAISINGS_ROUTE, LANDING_ROUTE, LOGIN_ROUTE, NOTICES_ROUTE,
     FORGOT_ROUTE, RESULTS_ROUTE, SIGNUP_ROUTE, STAFF_ROUTE, USER_ROUTE,
-    RESET_ROUTE,
-    CONFIRM_ROUTE
+    RESET_ROUTE, CONFIRM_ROUTE
 } from "./utils/constants";
 import Results from "./pages/results/Results";
 import Login from "./pages/login/Login";
 import Registration from "./pages/registration/Registration";
 import Contacts from "./pages/contacts/Contacts";
 import FAQ from "./pages/faq/FAQ";
-import { questions, members } from "./utils/constants";
+import { questions } from "./utils/constants";
 import ForgotPassword from "./pages/forgot_password/ForgotPassword";
 import ResetPassword from "./pages/reset_password/ResetPassword";
 import avatar from './resources/people.png';
 import Confirm from "./pages/confirm/Confirm";
+import StaffPage from "./pages/staff_page/StaffPage";
 
 export const adminRoutes = [
     {
@@ -44,7 +44,7 @@ export const userRoutes = [
 export const publicRoutes = [
     {
         path: LANDING_ROUTE,
-        Component: <Landing members={members} />
+        Component: <Landing avatar={avatar} />
     },
     {
         path: ABOUT_ROUTE,
@@ -52,18 +52,22 @@ export const publicRoutes = [
     },
     {
         path: STAFF_ROUTE,
-        Component: <Staff />
+        Component: <Staff avatar={avatar} />
     },
     {
-        path: FUNDRAISINGS_ROUTE + '/:id',
+        path: STAFF_ROUTE + '/:id',
+        Component: <StaffPage avatar={avatar} />
+    },
+    {
+        path: FUNDRAISINGS_ROUTE,
         Component: <Fundraisings />
     },
     {
-        path: NOTICES_ROUTE + '/:id',
+        path: NOTICES_ROUTE,
         Component: <Notices />
     },
     {
-        path: RESULTS_ROUTE + '/:id',
+        path: RESULTS_ROUTE,
         Component: <Results />
     },
     {

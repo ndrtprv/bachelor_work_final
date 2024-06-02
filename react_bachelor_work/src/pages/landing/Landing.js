@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
 import './Landing.css';
-import emp_avatar from '../../resources/people.png';
 import uaf_help from '../../resources/uaf_help.jpg';
 import humanitarian from '../../resources/humanitarian.jpg';
 import volunteer from '../../resources/volunteer.jpg';
@@ -12,6 +11,7 @@ import results from '../../resources/results.jpg';
 import LandingCarousel from '../../components/carousel/LandingCarousel';
 import { ABOUT_ROUTE, FUNDRAISINGS_ROUTE, RESULTS_ROUTE, STAFF_ROUTE } from '../../utils/constants';
 import Feedback from '../../components/feedback/Feedback';
+import axios from 'axios';
 
 function Landing(props) {
 
@@ -19,6 +19,18 @@ function Landing(props) {
   const textFeedback = "Якщо вас цікавлять певні питання, зв'яжіться з нами, заповнивши форму.";
   const classNameContainer = "d-flex flex-column justify-content-center";
   const classNameForm = "p-2";
+
+  const [admins, setAdmins] = useState([]);
+
+  useEffect(() => {
+    axios.get(process.env.REACT_APP_API_URL + 'staff/main')
+    .then(response => {
+      setAdmins(response.data.adminsProcessed);
+      console.log(response.data.message)
+    }).catch(err => {
+      console.log(err.message);
+    });
+  });
 
   return (
     <main>
@@ -41,13 +53,13 @@ function Landing(props) {
         <hr className="featurette-divider"/>
         <div className="row">
           <h2 className="featurette-heading lat-h2">Склад благодійного фонду</h2>
-          {Object.entries(props.members).map(([path, label]) =>
-            <div className="col-lg-4" key={path}>
-              <svg className="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><image href={emp_avatar} width="140" height="140" /></svg>
-              <h3 className='lat-h3'>{path}</h3>
-              <p className='rob'>{label}</p>
+          {admins.map((admin, index) =>
+            <div className="col-lg-4" key={index}>
+              <svg className="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><image href={admin.user.avatars ? `data:${admin.user.avatars.contentType};base64,${admin.user.avatars.data}` : props.avatar} alt={admin.user.name + ' ' + admin.user.surname} width="140" height="140" /></svg>
+              <h3 className='lat-h3'>{admin.user.name + ' ' + admin.user.surname}</h3>
+              <p className='rob'>{admin.role}</p>
               <p className='rob-btn'>
-                <NavLink to={STAFF_ROUTE} className="nav-link lat">
+                <NavLink to={STAFF_ROUTE + `/${admin.admin_id}`} className="nav-link lat">
                   <Button type="button" className="btn btn-secondary" >Деталі »</Button>
                 </NavLink>
               </p>

@@ -2,6 +2,23 @@ const ApiError = require("../error/ApiError");
 const jwt = require('jsonwebtoken');
 const { Notice, Photo, User } = require("../models/models");
 
+function cipherData(data, type) {
+    if (!data) return data;
+
+    switch(type) {
+        case 'login':
+            const [localPart, domain] = data.split('@');
+            return localPart[0] + '*'.repeat(localPart.length - 1) + '@' + domain;
+        case 'phone_num':
+            return data[0] + data[1] + '*'.repeat(data.length - 3) + data.slice(-2);
+        case 'name':
+        case 'surname':
+            return data[0] + '*'.repeat(data.length - 1);
+        default:
+            return data;
+    }
+}
+
 class NoticeController {
 
     async addNotice(req, res, next) {
@@ -55,8 +72,69 @@ class NoticeController {
     }
 
     async getNotices(req, res, next) {
+        
+        const {activePage} = req.body;
+
+        console.log("Active page: " + JSON.stringify(req.activePage))
+        let limit = 5;
+        let currentPage = activePage || 1;
+
+        let offset = limit * currentPage - limit;
+
         try {
             
+            const count = await Notice.count();
+
+            if (count === 0) {
+                return res.json({message: "It's empty!"});
+            }
+
+            let pages = Math.ceil(count / limit);
+
+            const notices = await Notice.findAll({
+                include: [
+                    {
+                        model: Photo,
+                        as: 'photos',
+                        attributes: ['photo_id', 'src_photo', 'contentType']
+                    },
+                    {
+                        model: User,
+                        attributes: ['id', 'login', 'phone_num', 'name', 'surname', 'hideData']
+                    }
+                ],
+                limit,
+                offset,
+                order: [['createdAt', 'DESC']]
+            });
+
+            const noticesProcessed = notices.map(notice => {
+                const photosWithBase64 = notice.photos.map(photo => {
+                    return {
+                        photo_id: photo.photo_id,
+                        src_photo: photo.src_photo.toString('base64'), // Convert bytea to base64
+                        contentType: photo.contentType
+                    };
+                });
+    
+                // Cipher user data if hideData is true
+                let user = notice.user;
+                if (user.hideData) {
+                    user.login = cipherData(user.login, 'login');
+                    user.phone_num = cipherData(user.phone_num, 'phone_num');
+                    user.name = cipherData(user.name, 'name');
+                    user.surname = cipherData(user.surname, 'surname');
+                }
+
+                return {
+                    ...notice.toJSON(),
+                    typeDescription: notice.type === 0 ? "Допомога ЗСУ" : "Гуманітарна допомога",
+                    photos: photosWithBase64,
+                    user: user
+                };
+            });
+            
+            return res.json({noticesProcessed, pages, message: "OK"});
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }
@@ -107,6 +185,7 @@ class NoticeController {
     
                 return {
                     ...notice.toJSON(),
+                    typeDescription: notice.type === 0 ? "Допомога ЗСУ" : "Гуманітарна допомога",
                     photos: photosWithBase64
                 };
             });
