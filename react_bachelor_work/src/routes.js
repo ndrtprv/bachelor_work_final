@@ -16,6 +16,7 @@ import Login from "./pages/login/Login";
 import Registration from "./pages/registration/Registration";
 import Contacts from "./pages/contacts/Contacts";
 import FAQ from "./pages/faq/FAQ";
+import NoticePage from "./pages/notice_page/NoticePage";
 import { questions } from "./utils/constants";
 import ForgotPassword from "./pages/forgot_password/ForgotPassword";
 import ResetPassword from "./pages/reset_password/ResetPassword";
@@ -65,6 +66,10 @@ export const publicRoutes = [
     {
         path: NOTICES_ROUTE,
         Component: <Notices />
+    },
+    {
+        path: NOTICES_ROUTE + '/:id',
+        Component: <NoticePage />
     },
     {
         path: RESULTS_ROUTE,

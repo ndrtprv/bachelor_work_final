@@ -22,8 +22,10 @@ function AdminPanel() {
   });
 
   return (
-    <div>AdminPanel</div>
+    <main>
+      AdminPanel
+    </main>
   )
 }
 
-export default AdminPanel
+export default AdminPanel;

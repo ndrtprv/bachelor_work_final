@@ -26,7 +26,6 @@ function Landing(props) {
     axios.get(process.env.REACT_APP_API_URL + 'staff/main')
     .then(response => {
       setAdmins(response.data.adminsProcessed);
-      console.log(response.data.message)
     }).catch(err => {
       console.log(err.message);
     });

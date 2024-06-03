@@ -71,7 +71,7 @@ function Login() {
                     Увійти
                 </Button>
 
-                <Form.Group className="mt-3 registration-field" controlId="formBasicTip">
+                <Form.Group className="mt-3 registration-field" >
                     <Form.Label><b><span style={{color: "red"}}>*</span></b> - обов'язково до заповнення</Form.Label>
                 </Form.Group>
             </Form>

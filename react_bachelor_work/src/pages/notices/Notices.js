@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Button, Card, CardImg, Col, Container, Pagination, Row } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
+import { NOTICES_ROUTE } from '../../utils/constants';
 
 function Notices() {
 
@@ -50,17 +52,19 @@ function Notices() {
       {
         notices.length !== 0 ?
         <>
-          <Row style={{borderStyle: 'solid', borderColor: 'gray', borderWidth: '0.25em', margin: '3em', padding: '0.5em'}}>
+          <Row style={{borderStyle: 'solid', borderColor: 'gray', borderWidth: '0.15em', margin: '3em', padding: '0.5em'}}>
             {notices.map((notice, index) => 
-              <Col key={index} style={{padding: 'auto'}}>
-                <Card style={{ width: '13rem' }}>
+              <Col key={index} style={{justifyContent: 'space-around', alignContent: 'center', margin: '0.15em'}} lg={4}>
+                <Card style={{ width: '13rem', alignContent: 'center' }} >
                   <CardImg variant="top" src={`data:${notice.photos[0].contentType};base64,${notice.photos[0].src_photo}`} alt={notice.id + ' ' + notice.kind} />
                   <Card.Body>
                     <Card.Title>{notice.kind}</Card.Title>
                     <Card.Text>
                       Автор: {notice.user.name + " " + notice.user.surname}
                     </Card.Text>
-                    <Button variant="primary">Докладніше</Button>
+                    <NavLink to={NOTICES_ROUTE + `/${notice.id}`} className="nav-link lat">
+                      <Button variant="primary">Докладніше</Button>
+                    </NavLink>
                   </Card.Body>
                 </Card>
               </Col>

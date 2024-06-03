@@ -64,7 +64,19 @@ class NoticeController {
     }
 
     async deleteNotice(req, res, next) {
+
+        const {id} = req.body;
+
         try {
+            const notice = await Notice.findOne({where: {id: id}});
+
+            if (notice) {
+                await Notice.destroy({where: {id: id}});
+
+                return res.json({status: true, message: 'Видалення оголошення успішне!'});
+            } else {
+                return res.json({status: false, message: 'Оголошення не знайдено!'});
+            }
 
         } catch (e) {
             next(ApiError.badRequest(e.message))
@@ -196,8 +208,54 @@ class NoticeController {
         }
     }
 
-    async getNotice(req, res) {
+    async getNotice(req, res, next) {
 
+        const {id} = req.params;
+
+        try {
+            const notice = await Notice.findOne({
+                where: {
+                    id: id
+                },
+                include: [
+                    {
+                        model: Photo,
+                        as: 'photos',
+                        attributes: ['photo_id', 'src_photo', 'contentType']
+                    },
+                    {
+                        model: User,
+                        attributes: ['id', 'login', 'phone_num', 'name', 'surname', 'hideData']
+                    }
+                ]
+            });
+
+            if (!notice) {
+                return next(ApiError.badRequest('Не знайдено!'));
+            }
+
+            const user = notice.user;
+
+            const processedNotice = {
+                ...notice.toJSON(),
+                typeDescription: notice.type === 0 ? "Допомога ЗСУ" : "Гуманітарна допомога",
+                photos: notice.photos.map(photo => ({
+                    ...photo.toJSON(),
+                    src_photo: photo.src_photo.toString('base64') // Convert blob to base64
+                })),
+                user: {
+                    ...user.toJSON(),
+                    login: user.hideData ? cipherData(user.login, 'login') : user.login,
+                    phone_num: user.hideData ? cipherData(user.phone_num, 'phone_num') : user.phone_num,
+                    name: user.hideData ? cipherData(user.name, 'name') : user.name,
+                    surname: user.hideData ? cipherData(user.surname, 'surname') : user.surname,
+                }
+            };
+
+            return res.json({processedNotice, message: "OK " + id});
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
     }
 }
 

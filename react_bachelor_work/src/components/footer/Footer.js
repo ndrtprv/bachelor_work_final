@@ -18,7 +18,7 @@ function Footer(props) {
               </h6>
               <ul style={{listStyleType: 'none'}}>
                 {Object.entries(props.data1).map(([path, label]) =>
-                  <li>
+                  <li key={path}>
                     <Link key={path} to={path} className="text-white">{label}</Link>
                   </li>
                 )}
@@ -30,14 +30,14 @@ function Footer(props) {
               </h6>
               <ul style={{listStyleType: 'none'}}>
                 {Object.entries(props.data2).map(([path, label]) =>
-                  <li>
+                  <li key={path}>
                     <Link key={path} to={path} className="text-white">{label}</Link>
                   </li>
                 )}
               </ul>
             </div>
             {Object.entries(props.data3).map(([path, label]) =>
-              <div className="col-md-2">
+              <div className="col-md-2" key={path}>
                 <h6 className="text-uppercase font-weight-bold lat">
                   <Link key={path} to={path} className="text-white">{label}</Link>
                 </h6>

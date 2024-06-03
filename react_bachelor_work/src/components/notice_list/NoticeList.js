@@ -46,7 +46,10 @@ function NoticeList() {
 
     const handleDelete = (e) => {
         e.preventDefault();
-        console.log(parseInt(e.target.name));
+        axios.post(process.env.REACT_APP_API_URL + 'notice/deleteNotice', {id: parseInt(e.target.name)})
+        .then(response => {
+            alert(response.data.message);
+        })
     }
 
     return (

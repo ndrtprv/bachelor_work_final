@@ -180,7 +180,7 @@ function Registration() {
                     Зареєструватися
                 </Button>
 
-                <Form.Group className="mt-3 registration-field" controlId="formBasicTip">
+                <Form.Group className="mt-3 registration-field" >
                     <Form.Label><b><span style={{color: "red"}}>*</span></b> - обов'язково до заповнення</Form.Label>
                     <Form.Label>Пароль має містити не менше 8 символів</Form.Label>
                     <Form.Label>Пароль має містити мінімум 1 велику літеру</Form.Label>
